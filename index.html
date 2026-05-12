@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio | Outer Space</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --space-dark: #0a0e27;
+            --space-purple: #2d1b4e;
+            --space-blue: #1a3a52;
+            --star-white: #ffffff;
+            --nebula-pink: #ff006e;
+            --nebula-purple: #8338ec;
+            --nebula-blue: #3a86ff;
+            --accent-cyan: #06ffa5;
+            --text-light: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(180deg, #0a0e27 0%, #2d1b4e 50%, #1a0033 100%);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0e27 0%, #2d1b4e 50%, #1a0033 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 60px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 10px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: twinkle 3s infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.9; }
+        }
+
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            filter: blur(40px);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .nebula.pink {
+            width: 300px;
+            height: 300px;
+            background: var(--nebula-pink);
+            top: 10%;
+            left: 5%;
+        }
+
+        .nebula.purple {
+            width: 400px;
+            height: 400px;
+            background: var(--nebula-purple);
+            bottom: -100px;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .nebula.blue {
+            width: 350px;
+            height: 350px;
+            background: var(--nebula-blue);
+            top: 50%;
+            right: -100px;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-30px) translateX(15px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue), var(--nebula-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 0, 110, 0.3);
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--accent-cyan);
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        /* ===== BUTTONS WITH IMAGES ===== */
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            position: relative;
+            width: 200px;
+            height: 280px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 20px;
+            overflow: visible;
+            text-align: center;
+            border: 2px solid var(--nebula-blue);
+            animation: buttonGlow 3s ease-in-out infinite, popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            perspective: 1000px;
+        }
+
+        .btn:nth-child(2) {
+            animation: buttonGlow 3s ease-in-out infinite, popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Background with corner glows */
+        .btn {
+            background: 
+                /* Top-left corner glow */
+                radial-gradient(circle at 8% 8%, rgba(58, 134, 255, 0.4) 0%, transparent 40%),
+                /* Top-right corner glow */
+                radial-gradient(circle at 92% 8%, rgba(255, 0, 110, 0.3) 0%, transparent 40%),
+                /* Bottom-right corner glow */
+                radial-gradient(circle at 92% 92%, rgba(131, 58, 180, 0.4) 0%, transparent 40%),
+                /* Base gradient */
+                linear-gradient(135deg, rgba(51, 56, 236, 0.3), rgba(131, 58, 180, 0.3));
+            box-shadow: 0 0 25px rgba(58, 134, 255, 0.3), inset 0 0 25px rgba(58, 134, 255, 0.15);
+        }
+
+        @keyframes buttonGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(58, 134, 255, 0.2), inset 0 0 20px rgba(58, 134, 255, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(58, 134, 255, 0.4), inset 0 0 30px rgba(255, 0, 110, 0.15);
+            }
+        }
+
+        /* Animated border glow */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue), var(--nebula-purple), var(--nebula-pink));
+            border-radius: 15px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.2; }
+        }
+
+        .btn:hover::before {
+            opacity: 0.5;
+            animation: none;
+        }
+
+        /* Image background */
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.75;
+            z-index: 1;
+            transition: all 0.4s ease;
+            border-radius: 13px;
+        }
+
+        .btn-lotm::after {
+            background-image: url('./LOTM/images/The_Fool.jpeg');
+        }
+
+        .btn-pudding::after {
+            background-image: url('./Pudding Paradise/images/Group1.png');
+        }
+
+        /* Overlay gradient */
+        .btn {
+            background-image: 
+                linear-gradient(180deg, rgba(10, 14, 39, 0.1) 0%, rgba(10, 14, 39, 0.85) 70%, rgba(10, 14, 39, 0.95) 100%);
+        }
+
+        /* Shine effect overlay */
+        .btn .shine {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            border-radius: 13px 13px 0 0;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        /* Sparkle animation */
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .btn::before {
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        .btn:hover::before {
+            animation: borderGlowHover 0.6s ease-in-out;
+        }
+
+        @keyframes borderGlowHover {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 0, 110, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(255, 0, 110, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+            }
+        }
+
+        /* Label badge */
+        .btn-label {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
+            color: white;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: scale(0) rotate(-45deg);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 5;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
+        }
+
+        .btn:hover .btn-label {
+            opacity: 1;
+            transform: scale(1) rotate(0);
+            animation: labelPulse 0.5s ease-in-out;
+        }
+
+        @keyframes labelPulse {
+            0%, 100% {
+                transform: scale(1) rotate(0);
+            }
+            50% {
+                transform: scale(1.1) rotate(2deg);
+            }
+        }
+
+        .btn:hover .btn-label {
+            background: linear-gradient(135deg, var(--nebula-blue), var(--nebula-pink));
+            box-shadow: 0 0 25px rgba(255, 0, 110, 0.7);
+        }
+
+        .btn-text {
+            position: relative;
+            z-index: 3;
+            color: white;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(58, 134, 255, 0.4);
+            text-transform: uppercase;
+            animation: textGlow 2s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-text::before {
+            content: '';
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--nebula-pink), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover .btn-text::before {
+            opacity: 1;
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                text-shadow: 0 0 12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(58, 134, 255, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 15px rgba(0, 0, 0, 0.9), 0 0 30px rgba(58, 134, 255, 0.6), 0 0 40px rgba(255, 0, 110, 0.3);
+            }
+        }
+
+        .btn:hover {
+            transform: translateY(-30px) scale(1.12) rotateY(-5deg);
+            box-shadow: 
+                0 30px 80px rgba(255, 0, 110, 0.8),
+                0 0 70px rgba(58, 134, 255, 0.7),
+                inset 0 0 50px rgba(58, 134, 255, 0.3),
+                0 0 40px rgba(131, 58, 180, 0.5),
+                /* Additional depth shadows */
+                0 40px 100px rgba(255, 0, 110, 0.4);
+            border-color: var(--nebula-pink);
+            filter: brightness(1.4) drop-shadow(0 0 20px rgba(255, 0, 110, 0.5));
+        }
+
+        .btn:hover::after {
+            opacity: 0.95;
+            transform: scale(1.08);
+        }
+
+        .btn:hover .shine {
+            opacity: 1;
+            animation: shineEffect 0.6s ease-in-out;
+        }
+
+        @keyframes shineEffect {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+
+        .btn:active {
+            transform: scale(0.92) translateY(-20px);
+        }
+
+        /* ===== SCROLL INDICATOR ===== */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            z-index: 20;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, rgba(10, 14, 39, 0.9), rgba(45, 27, 78, 0.9));
+            text-align: center;
+            color: white;
+            border-top: 1px solid var(--nebula-blue);
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 30px;
+            background: rgba(51, 56, 236, 0.1);
+            border: 1px solid var(--nebula-blue);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            animation: slideInUp 0.6s ease-out both;
+        }
+
+        .feature-card:nth-child(2) { animation-delay: 0.1s; }
+        .feature-card:nth-child(3) { animation-delay: 0.2s; }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 0, 110, 0.1);
+            border-color: var(--nebula-pink);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 0, 110, 0.2);
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            line-height: 1.6;
+        }
+
+        /* ===== PROJECTS SECTION ===== */
+        .projects {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, rgba(45, 27, 78, 0.9), rgba(10, 14, 39, 0.9));
+            text-align: center;
+            color: white;
+            border-top: 1px solid var(--nebula-purple);
+        }
+
+        .projects h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, var(--nebula-blue), var(--nebula-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: rgba(51, 56, 236, 0.1);
+            border: 2px solid var(--nebula-purple);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            animation: slideInUp 0.6s ease-out both;
+        }
+
+        .project-card:nth-child(2) { animation-delay: 0.1s; }
+
+        .project-card:hover {
+            background: rgba(131, 58, 180, 0.2);
+            border-color: var(--nebula-pink);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(131, 58, 180, 0.3);
+        }
+
+        .project-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-card p {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            opacity: 0.85;
+            line-height: 1.6;
+        }
+
+        .project-card a {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--nebula-pink), var(--nebula-blue));
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .project-card a:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .project-card a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 0, 110, 0.4);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--space-dark);
+            color: var(--text-light);
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid rgba(131, 58, 180, 0.3);
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .features, .projects {
+                padding: 60px 15px;
+            }
+
+            .features h2, .projects h2 {
+                font-size: 1.8rem;
+            }
+
+            .iceberg {
+                width: 150px;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                height: 80vh;
+                min-height: 600px;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .subtitle {
+                font-size: 0.85rem;
+            }
+
+            .btn {
+                padding: 12px 30px;
+                font-size: 0.9rem;
+            }
+
+            .features h2, .projects h2 {
+                font-size: 1.5rem;
+            }
+
+            .feature-card, .project-card {
+                padding: 20px;
+            }
+
+            .scroll-indicator {
+                bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="nebula pink"></div>
+        <div class="nebula purple"></div>
+        <div class="nebula blue"></div>
+
+        <div class="hero-content">
+            <h1>PsReader's</h1>
+            <h1>PORTFOLIO</h1>
+            <p>Explore the Cosmic Universe</p>
+            <p class="subtitle">Journey through interactive projects across the stars</p>
+            
+            <div class="buttons-container">
+                <a href="LOTM/LOTMhome.html" class="btn btn-lotm">
+                    <div class="shine"></div>
+                    <div class="btn-label">EXPLORE</div>
+                    <span class="btn-text">LOTM</span>
+                </a>
+                <a href="Pudding Paradise/index.html" class="btn btn-pudding">
+                    <div class="shine"></div>
+                    <div class="btn-label">DISCOVER</div>
+                    <span class="btn-text">Pudding Paradise</span>
+                </a>
+            </div>
+
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT ME SECTION -->
+    <section class="features">
+        <h2>About PsReader</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; opacity: 0.9; line-height: 1.8;">
+            I am an aspiring developer with a passion for creating interactive and innovative digital experiences. I like to dabble in a little bit of everything—from web development and design to creative storytelling and interactive narratives.
+        </p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-code"></i>
+                <h3>Web Development</h3>
+                <p>Building responsive, interactive websites with modern technologies. I explore HTML, CSS, JavaScript, and continuously learn new frameworks and tools.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-palette"></i>
+                <h3>Design & Creativity</h3>
+                <p>Crafting beautiful user experiences through thoughtful design. Every project is an opportunity to blend aesthetics with functionality and create something meaningful.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Experimentation</h3>
+                <p>I thrive on exploring new ideas and technologies. Whether it's a themed interface or interactive game, I'm always eager to learn, experiment, and push creative boundaries.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects">
+        <h2>My Stellar Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>📜 LOTM</h3>
+                <p>A comprehensive collection of abilities, pathways, characters, and lore from Lord of the Mysteries. Dive deep into the intricate world of the novel.</p>
+                <a href="LOTM/LOTMhome.html">Explore Project</a>
+            </div>
+            <div class="project-card">
+                <h3>🍮 Pudding Paradise</h3>
+                <p>A sweet and interactive dessert paradise. Explore delicious menu items, browse our gallery, and read customer reviews.</p>
+                <a href="Pudding Paradise/index.html">Explore Project</a>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <p>2026 My Portfolio.</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for scroll indicator
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.querySelector('.features').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Parallax effect for nebulas on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const nebulas = document.querySelectorAll('.nebula');
+            nebulas.forEach((nebula, index) => {
+                nebula.style.transform = `translateY(${scrolled * 0.3 + (index * 10)}px) translateX(${index * 5}px)`;
+            });
+        });
+
+        // Intersection Observer for animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideInUp 0.6s ease-out forwards';
+                }
+            });
+        });
+
+        document.querySelectorAll('.feature-card, .project-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
