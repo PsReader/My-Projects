@@ -3940,10 +3940,10 @@
           audio.loop = loopMode === "one";
         })();
 
-        document.querySelectorAll("a, button, .project-card").forEach((el) => {
+        document.querySelectorAll("a, button, .project-card, .stats-strip-item").forEach((el) => {
           el.addEventListener("mouseenter", () => sfx.hover());
         });
-        document.querySelectorAll("a, button, .project-card").forEach((el) => {
+        document.querySelectorAll("a, button, .project-card, .stats-strip-item").forEach((el) => {
           el.addEventListener("click", () => sfx.click());
         });
 
