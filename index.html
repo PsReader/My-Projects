@@ -2076,6 +2076,10 @@
           height: 18px;
         }
 
+        .carousel-container {
+          padding-inline: 16px;
+        }
+
         .project-viewport {
           max-height: 180px;
         }
@@ -2124,6 +2128,20 @@
       }
 
       /* =================================================================
+         RESPONSIVE — Mobile (≤ 480px)
+         ================================================================= */
+      @media (max-width: 480px) {
+        .hero-subtitle {
+          white-space: normal;
+          word-break: break-word;
+        }
+
+        .stack-scroll-wrapper canvas {
+          height: 250px !important;
+        }
+      }
+
+      /* =================================================================
          RESPONSIVE — Small mobile (≤ 380px)
          ================================================================= */
       @media (max-width: 380px) {
@@ -2152,6 +2170,10 @@
         .carousel-nav svg {
           width: 16px;
           height: 16px;
+        }
+
+        .carousel-container {
+          padding-inline: 8px;
         }
 
         .section {
