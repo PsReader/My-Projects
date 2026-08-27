@@ -1,15 +1,11 @@
 export interface CaptureApi {
   takeScreenshot: () => void;
-  startGifCapture: () => void;
-  isCapturingGif: boolean;
 }
 
 const noop = () => {};
 
 let api: CaptureApi = {
   takeScreenshot: noop,
-  startGifCapture: noop,
-  isCapturingGif: false,
 };
 
 const listeners = new Set<() => void>();

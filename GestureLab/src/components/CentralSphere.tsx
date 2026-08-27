@@ -121,6 +121,8 @@ export function CentralSphere({
   /* ---- Drag (mouse) ---- */
   const draggingRef = useRef(false);
   const dragOffRef = useRef(new THREE.Vector3());
+  const _dragNdc = useMemo(() => new THREE.Vector3(), []);
+  const _dragDir = useMemo(() => new THREE.Vector3(), []);
 
   /* ---- Smoothing refs ---- */
   const sPos = useRef(new THREE.Vector3(0, 0, 0));
@@ -148,6 +150,7 @@ export function CentralSphere({
 
   /* ---- Motion energy ---- */
   const prevJoints = useRef<THREE.Vector3[]>([]);
+  const _energyVec = useMemo(() => new THREE.Vector3(), []);
 
   /* ---- Ref-forward hot props ---- */
   const pRef = useRef(params);
@@ -156,6 +159,8 @@ export function CentralSphere({
   mRef.current = mode;
   const mhRef = useRef(modeHandIndex);
   mhRef.current = modeHandIndex;
+
+  const _lerpTarget = useMemo(() => new THREE.Vector3(), []);
 
   useFrame(({ clock, size, camera, pointer }) => {
     const halo = haloRef.current;
@@ -214,14 +219,18 @@ export function CentralSphere({
       for (let i = 0; i < 21; i++) {
         const lm = hand[i];
         if (!lm) continue;
-        const t = new THREE.Vector3(
+        _energyVec.set(
           (lm.x - 0.5) * wX,
           (0.5 - lm.y) * wY,
           (lm.z ?? 0) * 0.35,
         );
         const prev = prevJoints.current[i];
-        energy += prev ? t.distanceTo(prev) : 0;
-        prevJoints.current[i] = t;
+        energy += prev ? _energyVec.distanceTo(prev) : 0;
+        if (prev) {
+          prev.copy(_energyVec);
+        } else {
+          prevJoints.current[i] = _energyVec.clone();
+        }
       }
     });
     if (landmarks.length === 0) prevJoints.current = [];
@@ -268,18 +277,18 @@ export function CentralSphere({
     }
 
     if (draggingRef.current) {
-      const ndc = new THREE.Vector3(pointer.x, pointer.y, 0.5);
-      ndc.unproject(camera);
-      const dir = ndc.sub(camera.position).normalize();
-      const d = -camera.position.z / (dir.z || 0.001);
-      const pos = camera.position.clone().add(dir.clone().multiplyScalar(d));
-      tx = pos.x - dragOffRef.current.x;
-      ty = pos.y - dragOffRef.current.y;
+      _dragNdc.set(pointer.x, pointer.y, 0.5);
+      _dragNdc.unproject(camera);
+      _dragDir.copy(_dragNdc).sub(camera.position).normalize();
+      const d = -camera.position.z / (_dragDir.z || 0.001);
+      tx = camera.position.x + _dragDir.x * d - dragOffRef.current.x;
+      ty = camera.position.y + _dragDir.y * d - dragOffRef.current.y;
     }
 
     const lerpFactor = curMode === 1 && hasOther ? 0.35 : autoSmooth;
+    _lerpTarget.set(tx, ty, tz);
     sPos.current.lerp(
-      new THREE.Vector3(tx, ty, tz),
+      _lerpTarget,
       draggingRef.current ? 1 : lerpFactor,
     );
     prevMode.current = curMode;
@@ -406,7 +415,7 @@ export function CentralSphere({
         onPointerUp={onUp}
         onPointerOut={onUp}
       >
-        <torusGeometry args={[1.15, 0.01, 16, 80]} />
+        <torusGeometry args={[1.15, 0.01, lowPerf ? 8 : 16, lowPerf ? 40 : 80]} />
         <meshBasicMaterial color="#00ffff" transparent opacity={0.18} />
       </mesh>
       <points

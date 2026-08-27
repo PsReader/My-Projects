@@ -79,14 +79,13 @@ function RoutingPanelWithCapture(props: RoutingPanelBaseProps) {
     <RoutingPanel
       {...props}
       onScreenshot={capture.takeScreenshot}
-      onGifCapture={capture.startGifCapture}
-      isCapturingGif={capture.isCapturingGif}
     />
   );
 }
 function App() {
   const { videoRef, isReady, error } = useWebcam();
-  const { landmarks, handedness, isTracking } = useHands(videoRef);
+  const isLowPerf = useMemo(() => isLowPerfDevice(), []);
+  const { landmarks, handedness, isTracking } = useHands(videoRef, { lowPerf: isLowPerf });
   const selectedJoint = 8;
   const activeHand = 0;
 
@@ -110,8 +109,6 @@ function App() {
     localStorage.setItem("gesturelab-onboarded", "true")
   }, [])
 
-  const isLowPerf = useMemo(() => isLowPerfDevice(), []);
-
   const [centralParams, setCentralParams] = useState<CentralParams>(defaultCentralParams)
 
   const [interactiveId, setInteractiveId] = useState<string>(
@@ -128,7 +125,7 @@ function App() {
 
   const [resetSignal, setResetSignal] = useState(0)
 
-  const [navOpen, setNavOpen] = useState(true)
+  const [navOpen, setNavOpen] = useState(false)
   const prevRingRef = useRef(false)
   const ringCooldownRef = useRef(0)
 
@@ -201,7 +198,7 @@ function App() {
   return (
       <div className="app-shell">
         <div className="canvas-shell">
-          <Canvas camera={{ position: [0, 0, 3.5], fov: 50 }} gl={{ preserveDrawingBuffer: true }} style={{ zIndex: 0 }}>
+          <Canvas camera={{ position: [0, 0, 3.5], fov: 50 }} dpr={[1, 1.5]} gl={{ preserveDrawingBuffer: true }} style={{ zIndex: 0 }}>
             <ambientLight intensity={0.8} />
             <directionalLight position={[2, 2, 4]} intensity={1.2} />
             <AmbientBackground

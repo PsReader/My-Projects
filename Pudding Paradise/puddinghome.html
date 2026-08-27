@@ -2,812 +2,49 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>Pudding Paradise</title>
     <link rel="icon" href="images/Group1.png" />
     <link
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-
-    <style>
-      /* --- 1. CSS VARIABLES & RESET --- */
-      :root {
-        --bg-pink: #fadadd;
-        --main-purple: #8e6b96;
-        --light-purple: #c8aec8;
-        --card-bg: #d8bfd8; /* Thistle */
-        --text-color: #4a4a4a;
-        --white: #ffffff;
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: "Quicksand", sans-serif;
-      }
-
-      body {
-        background-color: #f0f0f0;
-        min-height: 100vh;
-        margin: 0;
-        padding: 20px 16px;
-        overflow-x: hidden;
-      }
-
-      /* Container Mobile Wrapper */
-      .mobile-container {
-        width: min(100%, 980px);
-        max-width: 980px;
-        margin: 0 auto;
-        background-color: var(--bg-pink);
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.12);
-        position: relative;
-        border-radius: 24px;
-        padding-bottom: clamp(20px, 5vh, 50px);
-        animation: fadeInUp 0.6s ease-out both;
-      }
-
-      @media (min-width: 768px) {
-        body {
-          padding: 0;
-        }
-
-        .mobile-container {
-          padding-bottom: clamp(30px, 5vh, 50px);
-        }
-      }
-
-      @media (min-width: 1024px) {
-        body {
-          padding: 0;
-        }
-
-        .mobile-container {
-          padding-bottom: clamp(40px, 5vh, 60px);
-        }
-      }
-
-      @media (min-width: 1200px) {
-        body {
-          padding: 0;
-        }
-
-        .mobile-container {
-          padding-bottom: clamp(40px, 5vh, 60px);
-        }
-      }
-
-      /* --- 1.5. ANIMATIONS --- */
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(18px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes floatPulse {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-4px);
-        }
-      }
-
-      .logo-area,
-      .menu-icon,
-      .contact-icon {
-        animation: floatPulse 4s ease-in-out infinite alternate;
-      }
-
-      .section-box,
-      .menu-card,
-      .menu-item,
-      .review-card,
-      .contact-item,
-      .coupon-card {
-        animation: fadeInUp 0.55s ease-out both;
-      }
-
-      button,
-      .button,
-      .order-button,
-      .submit-btn,
-      .save-btn {
-        transition:
-          transform 0.18s ease,
-          box-shadow 0.18s ease,
-          background-color 0.2s ease;
-      }
-
-      button:hover,
-      .button:hover,
-      .order-button:hover,
-      .submit-btn:hover,
-      .save-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 22px rgba(142, 107, 150, 0.18);
-      }
-
-      /* --- 2. HEADER --- */
-      header {
-        background-color: var(--light-purple);
-        padding: clamp(12px, 3vw, 35px) clamp(15px, 5vw, 70px);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 3px solid var(--main-purple);
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .logo-area {
-        display: flex;
-        align-items: center;
-        gap: clamp(8px, 2vw, 20px);
-        color: var(--main-purple);
-        font-weight: 700;
-        font-size: clamp(1.2rem, 3.5vw, 2.8rem);
-      }
-
-      .logo-icon {
-        font-size: clamp(1.2rem, 3.5vw, 2.8rem);
-        width: clamp(50px, 8vw, 110px);
-        height: clamp(50px, 8vw, 110px);
-        object-fit: contain;
-      }
-
-      .menu-icon,
-      .contact-icon {
-        color: var(--main-purple);
-        cursor: pointer;
-      }
-
-      .menu-icon {
-        font-size: clamp(1.8rem, 4vw, 3.8rem);
-      }
-
-      .contact-icon {
-        font-size: clamp(1.8rem, 4vw, 3.8rem);
-      }
-
-      /* --- 3. HERO SECTION --- */
-      .hero {
-        padding: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
-        display: flex;
-        align-items: center;
-        gap: clamp(10px, 3vw, 40px);
-        flex-wrap: wrap;
-      }
-
-      .hero-img {
-        width: 40%;
-        border-radius: 10px;
-        border: 2px solid var(--main-purple);
-        overflow: hidden;
-        flex: 0 0 40%;
-      }
-
-      .hero-img img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
-
-      .hero-text {
-        flex: 1;
-        background-color: #f8e6f0;
-        padding: clamp(10px, 2.5vw, 30px);
-        border-radius: 20px 20px 20px 0;
-        border: 2px solid var(--light-purple);
-        font-size: clamp(0.8rem, 2vw, 1.5rem);
-        position: relative;
-        min-width: 50%;
-      }
-
-      .hero-text h3 {
-        color: #555;
-        margin-bottom: clamp(3px, 1vw, 10px);
-        font-size: clamp(1rem, 2.5vw, 1.8rem);
-      }
-
-      @media (min-width: 768px) {
-        .hero {
-          padding: clamp(20px, 4vw, 50px) clamp(20px, 5vw, 70px);
-          flex-wrap: nowrap;
-        }
-      }
-
-      @media (min-width: 1024px) {
-        .hero {
-          padding: clamp(25px, 4vw, 50px) clamp(25px, 5vw, 70px);
-        }
-      }
-
-      @media (min-width: 1200px) {
-        .hero {
-          padding: clamp(40px, 5vw, 60px) clamp(40px, 6vw, 80px);
-        }
-      }
-
-      @media (max-width: 767px) {
-        body {
-          padding: 10px 0 12px;
-        }
-
-        .mobile-container {
-          width: min(100%, 100vw);
-          max-width: 100%;
-          margin: 0 auto;
-          border-radius: 20px;
-          padding-bottom: 20px;
-          overflow: hidden;
-        }
-
-        header {
-          flex-direction: column;
-          align-items: stretch;
-          gap: 14px;
-          padding: 18px 14px;
-          width: 100%;
-        }
-
-        .header-controls {
-          justify-content: flex-end;
-          width: 100%;
-        }
-
-        .logo-area {
-          width: 100%;
-          justify-content: space-between;
-          gap: 12px;
-        }
-
-        .hero {
-          flex-direction: column;
-          align-items: stretch;
-          gap: 14px;
-          padding: 16px 14px;
-        }
-
-        .hero-img,
-        .hero-text {
-          width: 100%;
-          min-width: 0;
-          flex: none;
-        }
-
-        .hero-img {
-          border-radius: 16px;
-        }
-
-        .hero-text {
-          padding: 16px;
-        }
-
-        .section-box {
-          margin: 14px 12px 20px;
-          padding: 16px;
-          text-align: left;
-        }
-
-        .section-title-badge {
-          position: static;
-          top: auto;
-          transform: none;
-          margin-bottom: 12px;
-        }
-
-        .menu-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 14px;
-          margin-top: 0;
-          justify-items: stretch;
-          padding: 0;
-        }
-
-        .menu-card {
-          width: 100%;
-          max-width: 100%;
-        }
-
-        .menu-img {
-          min-height: 160px;
-          width: 100%;
-        }
-
-        .counter-box {
-          gap: 14px;
-          padding: 10px 12px;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-
-        .btn-qty {
-          width: 38px;
-          height: 38px;
-        }
-
-        .qty-display {
-          width: 32px;
-        }
-
-        .order-btn {
-          width: 100%;
-          padding: 14px 0;
-          margin: 18px auto 0;
-        }
-
-        .review-card,
-        .contact-item,
-        .popup-content {
-          padding: 14px;
-        }
-
-        .contact-item {
-          flex-direction: column;
-          align-items: stretch;
-        }
-
-        .contact-item .contact-text {
-          text-align: left;
-        }
-
-        .popup-overlay {
-          padding: 12px;
-        }
-
-        .dropdown-menu {
-          left: 10px;
-          right: 10px;
-          width: auto;
-          min-width: unset;
-        }
-
-        .back-button {
-          top: 12px;
-          right: 12px;
-          width: 44px;
-          height: 44px;
-          font-size: 1.2rem;
-        }
-      }
-
-      /* --- 4. SECTIONS GENERAL STYLE --- */
-      .section-box {
-        background-color: #f4a6c1;
-        margin: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
-        padding: clamp(15px, 4vw, 45px);
-        border-radius: clamp(10px, 2vw, 25px);
-        border: 2px solid var(--main-purple);
-        text-align: center;
-      }
-
-      .section-title-badge {
-        display: inline-block;
-        background-color: var(--main-purple);
-        color: white;
-        padding: clamp(5px, 1.5vw, 15px) clamp(15px, 3vw, 45px);
-        border-radius: 15px;
-        font-weight: bold;
-        margin-bottom: clamp(8px, 2vw, 15px);
-        position: relative;
-        top: clamp(-20px, -3vw, -30px);
-        font-size: clamp(0.9rem, 2.5vw, 1.7rem);
-      }
-
-      /* --- 5. MENU SECTION --- */
-      .price-tag {
-        color: var(--white);
-        font-weight: bold;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        margin-bottom: clamp(8px, 2vw, 15px);
-        display: block;
-        font-size: clamp(0.8rem, 2vw, 1.5rem);
-      }
-
-      .menu-grid {
-        display: flex;
-        justify-content: space-around;
-        gap: clamp(8px, 2vw, 30px);
-        margin-top: clamp(-5px, -1vw, -15px);
-        flex-wrap: wrap;
-      }
-
-      .menu-card {
-        background-color: var(--light-purple);
-        padding: clamp(10px, 2vw, 18px);
-        border-radius: clamp(10px, 2vw, 20px);
-        width: clamp(150px, 35vw, 280px);
-        border: 2px solid #777;
-        box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
-      }
-
-      .menu-img {
-        width: 100%;
-        height: clamp(60px, 15vw, 180px);
-        object-fit: cover;
-        border-radius: 10px;
-        background-color: white;
-      }
-
-      .menu-name {
-        background-color: var(--main-purple);
-        color: white;
-        border-radius: 10px;
-        margin: clamp(4px, 1vw, 12px) 0;
-        padding: clamp(2px, 0.5vw, 6px);
-        font-size: clamp(0.7rem, 1.8vw, 1.3rem);
-      }
-
-      .counter-box {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: clamp(8px, 1.5vw, 20px);
-        background-color: rgba(255, 255, 255, 0.5);
-        border-radius: 5px;
-        padding: clamp(2px, 0.5vw, 8px);
-      }
-
-      .btn-qty {
-        background: none;
-        border: none;
-        font-weight: bold;
-        font-size: clamp(1rem, 2vw, 1.6rem);
-        cursor: pointer;
-        color: #333;
-        width: clamp(20px, 4vw, 35px);
-      }
-
-      .qty-display {
-        font-weight: bold;
-        font-size: clamp(0.9rem, 1.8vw, 1.3rem);
-        width: clamp(18px, 3vw, 28px);
-      }
-
-      .order-btn {
-        background-color: var(--main-purple);
-        color: white;
-        border: none;
-        padding: clamp(12px, 2vw, 18px) clamp(30px, 6vw, 60px);
-        border-radius: 20px;
-        margin: clamp(15px, 3vw, 25px) auto;
-        display: block;
-        font-weight: bold;
-        font-size: clamp(0.95rem, 2vw, 1.3rem);
-        cursor: pointer;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        transition: transform 0.1s;
-      }
-
-      .star-btn {
-        background: none;
-        border: none;
-        font-size: clamp(2rem, 4vw, 3.8rem);
-        cursor: pointer;
-        color: #bbb;
-        transition:
-          transform 0.15s,
-          color 0.15s;
-      }
-
-      .star-btn.active {
-        color: gold;
-        transform: scale(clamp(1.1, 1.2, 1.3));
-      }
-
-      @media (min-width: 768px) {
-        .rating-row {
-          gap: clamp(5px, 1vw, 10px);
-          margin: clamp(10px, 2vw, 20px) 0;
-        }
-      }
-
-      @media (min-width: 1024px) {
-        .star-btn {
-          font-size: clamp(3rem, 4vw, 4rem);
-        }
-      }
-      .input-label {
-        display: block;
-        text-align: left;
-        margin: clamp(12px, 2vw, 25px) 0 clamp(5px, 1vw, 12px);
-        color: var(--main-purple);
-        font-weight: 700;
-        font-size: clamp(0.85rem, 1.8vw, 1.4rem);
-      }
-
-      .popup-overlay {
-        position: fixed;
-        inset: 0;
-        background-color: rgba(0, 0, 0, 0.4);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        padding: 20px;
-      }
-
-      .popup-content {
-        background-color: var(--bg-pink);
-        border: 2px solid var(--main-purple);
-        border-radius: clamp(15px, 3vw, 30px);
-        padding: clamp(15px, 3vw, 35px);
-        max-width: clamp(350px, 90vw, 600px);
-        width: 100%;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        text-align: center;
-      }
-
-      .popup-content h2 {
-        margin-bottom: clamp(8px, 2vw, 18px);
-        color: var(--main-purple);
-        font-size: clamp(1.2rem, 3vw, 1.8rem);
-      }
-
-      .popup-content input,
-      .popup-content textarea {
-        width: 100%;
-        min-height: clamp(38px, 8vw, 50px);
-        border-radius: clamp(10px, 2vw, 18px);
-        border: 2px solid rgba(142, 107, 150, 0.4);
-        resize: vertical;
-        padding: clamp(8px, 1.5vw, 14px);
-        margin-top: clamp(8px, 1.5vw, 14px);
-        font-family: "Quicksand", sans-serif;
-        font-size: clamp(0.9rem, 1.8vw, 1.4rem);
-      }
-
-      .cancel-btn {
-        background-color: transparent;
-        color: var(--main-purple);
-        border: 2px solid var(--main-purple);
-        border-radius: clamp(15px, 2vw, 25px);
-        padding: clamp(10px, 2vw, 16px) clamp(18px, 3vw, 40px);
-        font-weight: 700;
-        cursor: pointer;
-        transition:
-          background-color 0.2s,
-          color 0.2s,
-          transform 0.1s;
-        font-size: clamp(0.85rem, 1.8vw, 1.4rem);
-      }
-
-      .cancel-btn:hover {
-        background-color: var(--main-purple);
-        color: white;
-        transform: translateY(-1px);
-      }
-
-      .popup-actions {
-        display: flex;
-        justify-content: center;
-        gap: clamp(8px, 2vw, 25px);
-        flex-wrap: wrap;
-        margin-top: clamp(12px, 2vw, 25px);
-      }
-
-      /* --- 6. REVIEW SECTION --- */
-      .review-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .review-card {
-        background-color: var(--light-purple);
-        padding: clamp(10px, 2vw, 18px);
-        border-radius: clamp(12px, 2vw, 20px);
-        border: 1px solid #777;
-        text-align: left;
-      }
-
-      .avatar {
-        width: clamp(28px, 6vw, 50px);
-        height: clamp(28px, 6vw, 50px);
-        border-radius: 50%;
-        background-color: white;
-        overflow: hidden;
-      }
-
-      .user-badge {
-        background-color: var(--main-purple);
-        color: white;
-        font-size: clamp(0.6rem, 1.2vw, 0.9rem);
-        padding: clamp(2px, 0.5vw, 5px) clamp(6px, 1.5vw, 12px);
-        border-radius: 10px;
-      }
-
-      .stars {
-        color: gold;
-        font-size: clamp(0.7rem, 1.5vw, 1rem);
-      }
-
-      .review-text {
-        background-color: rgba(255, 255, 255, 0.6);
-        padding: clamp(8px, 1.5vw, 12px);
-        border-radius: 5px;
-        font-size: clamp(0.75rem, 1.6vw, 1.2rem);
-        font-style: italic;
-      }
-
-      /* --- 7. CONTACT SECTION --- */
-      .contact-item {
-        background-color: var(--light-purple);
-        padding: clamp(10px, 2vw, 18px) clamp(10px, 2vw, 25px);
-        border-radius: clamp(15px, 2vw, 25px);
-        border: 1px solid #777;
-        margin-bottom: clamp(8px, 1.5vw, 15px);
-        display: flex;
-        align-items: center;
-        gap: clamp(10px, 2vw, 20px);
-        text-decoration: none;
-        color: #333;
-      }
-
-      .icon-circle {
-        background-color: var(--main-purple);
-        color: white;
-        width: clamp(28px, 5vw, 50px);
-        height: clamp(28px, 5vw, 50px);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: clamp(1rem, 2vw, 1.8rem);
-        flex-shrink: 0;
-      }
-
-      .contact-text {
-        font-size: clamp(0.7rem, 1.6vw, 1.3rem);
-        font-weight: 600;
-      }
-
-      /* --- 8. DROPDOWN MENU --- */
-      .dropdown-menu {
-        position: absolute;
-        top: 65px;
-        left: 0;
-        background-color: var(--light-purple);
-        width: 200px;
-        border: 2px solid var(--main-purple);
-        border-radius: 0 0 15px 15px;
-        display: flex;
-        flex-direction: column;
-        z-index: 1000;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
-        max-height: 0;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px) scale(0.98);
-        transition:
-          max-height 0.35s ease,
-          opacity 0.35s ease,
-          transform 0.35s ease,
-          visibility 0.35s ease;
-      }
-
-      .dropdown-menu.active {
-        max-height: 260px;
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0) scale(1);
-      }
-
-      .dropdown-item {
-        padding: clamp(10px, 2vw, 18px) clamp(15px, 3vw, 35px);
-        color: var(--main-purple);
-        text-decoration: none;
-        border-bottom: 1px solid rgba(142, 107, 150, 0.2);
-        font-weight: 600;
-        transition:
-          background-color 0.2s,
-          transform 0.2s;
-        font-size: clamp(0.85rem, 1.8vw, 1.3rem);
-      }
-
-      @media (min-width: 768px) {
-        .dropdown-menu {
-          width: clamp(200px, 20vw, 240px);
-        }
-      }
-
-      @media (min-width: 1024px) {
-        .dropdown-menu {
-          width: clamp(220px, 20vw, 260px);
-        }
-      }
-
-      .menu-icon {
-        cursor: pointer;
-      }
-
-      .header-controls {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-      }
-
-      .back-button {
-        position: fixed;
-        top: clamp(15px, 3vw, 35px);
-        right: clamp(15px, 3vw, 35px);
-        z-index: 1000;
-        width: clamp(42px, 8vw, 70px);
-        height: clamp(42px, 8vw, 70px);
-        border-radius: 50%;
-        background: linear-gradient(
-          135deg,
-          var(--main-purple),
-          var(--light-purple)
-        );
-        border: 2px solid var(--main-purple);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(142, 107, 150, 0.3);
-        animation: floatPulse 4s ease-in-out infinite alternate;
-        text-decoration: none;
-        color: white !important;
-        font-size: clamp(1.3rem, 3.5vw, 2.8rem);
-        font-weight: bold;
-      }
-
-      .back-button:hover {
-        background: linear-gradient(
-          135deg,
-          var(--light-purple),
-          var(--main-purple)
-        );
-        transform: scale(1.1) translateY(-3px);
-        box-shadow: 0 8px 20px rgba(142, 107, 150, 0.5);
-      }
-
-      .back-button,
-      .back-button:link,
-      .back-button:visited,
-      .back-button:hover,
-      .back-button:active {
-        color: white !important;
-        text-decoration: none;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <a href="../index.html" class="back-button" title="Back to Portfolio">←</a>
+    <a href="../index.html" class="back-button" title="Back to Portfolio"
+      >&larr;</a
+    >
+
     <div class="mobile-container">
       <header>
         <div class="menu-icon" onclick="toggleMenu()">
-          <i class="fas fa-bars"></i>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          >
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
         </div>
         <div class="logo-area">
-          <img src="images/Group1.png" class="logo-icon" alt="Pudding Icon" />
+          <img
+            src="images/Group1.png"
+            class="logo-icon"
+            alt="Pudding Icon"
+            width="72"
+            height="72"
+          />
           <span>PUDDING PARADISE</span>
         </div>
-        <div class="header-controls">
-          <a
-            href="#kontak"
-            class="contact-icon"
-            style="text-decoration: none; color: #8e6b96"
-            ><i class="fas fa-envelope"></i
-          ></a>
-        </div>
+
 
         <div class="dropdown-menu" id="dropdownMenu">
           <a href="#" class="dropdown-item" onclick="scrollToSection('hero')"
@@ -815,19 +52,43 @@
           >
           <a href="menu.html" class="dropdown-item">Menu</a>
           <a href="review.html" class="dropdown-item">Review</a>
-          <a href="#kontak" class="dropdown-item">Kontak</a>
+
         </div>
       </header>
 
       <section class="hero" id="hero">
         <div class="hero-img">
-          <img src="images/image1.png" alt="Pudding" />
+          <img
+            src="images/image1.png"
+            alt="Pudding"
+            width="400"
+            height="300"
+            loading="lazy"
+          />
         </div>
         <div class="hero-text">
-          <h3>"Sensasi lembut yang memanjakan lidah"</h3>
+          <h3>&ldquo;Sensasi lembut yang memanjakan lidah&rdquo;</h3>
           <p>
             Puding susu yang lembut di mulut, kelezatannya terjamin
-            <i class="fas fa-thumbs-up"></i>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              style="
+                width: 1em;
+                height: 1em;
+                vertical-align: middle;
+                color: var(--main-purple);
+              "
+            >
+              <path d="M7 10v12" />
+              <path
+                d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88"
+              />
+            </svg>
           </p>
         </div>
       </section>
@@ -844,11 +105,14 @@
               src="images/strawberry.png"
               class="menu-img"
               alt="Strawberry"
+              width="200"
+              height="140"
+              loading="lazy"
             />
             <div class="menu-name">Strawberry</div>
             <div class="counter-box">
               <button class="btn-qty" onclick="updateQty('strawberry', -1)">
-                -
+                &minus;
               </button>
               <span id="qty-strawberry" class="qty-display">0</span>
               <button class="btn-qty" onclick="updateQty('strawberry', 1)">
@@ -858,11 +122,18 @@
           </div>
 
           <div class="menu-card">
-            <img src="images/coklat.png" class="menu-img" alt="Coklat" />
+            <img
+              src="images/coklat.png"
+              class="menu-img"
+              alt="Coklat"
+              width="200"
+              height="140"
+              loading="lazy"
+            />
             <div class="menu-name">Coklat</div>
             <div class="counter-box">
               <button class="btn-qty" onclick="updateQty('coklat', -1)">
-                -
+                &minus;
               </button>
               <span id="qty-coklat" class="qty-display">0</span>
               <button class="btn-qty" onclick="updateQty('coklat', 1)">
@@ -872,11 +143,18 @@
           </div>
 
           <div class="menu-card">
-            <img src="images/mangga.jpg" class="menu-img" alt="Mangga" />
+            <img
+              src="images/mangga.jpg"
+              class="menu-img"
+              alt="Mangga"
+              width="200"
+              height="140"
+              loading="lazy"
+            />
             <div class="menu-name">Mangga</div>
             <div class="counter-box">
               <button class="btn-qty" onclick="updateQty('mangga', -1)">
-                -
+                &minus;
               </button>
               <span id="qty-mangga" class="qty-display">0</span>
               <button class="btn-qty" onclick="updateQty('mangga', 1)">
@@ -886,10 +164,19 @@
           </div>
 
           <div class="menu-card">
-            <img src="images/oreo.jpg" class="menu-img" alt="Oreo" />
+            <img
+              src="images/oreo.jpg"
+              class="menu-img"
+              alt="Oreo"
+              width="200"
+              height="140"
+              loading="lazy"
+            />
             <div class="menu-name">Oreo</div>
             <div class="counter-box">
-              <button class="btn-qty" onclick="updateQty('oreo', -1)">-</button>
+              <button class="btn-qty" onclick="updateQty('oreo', -1)">
+                &minus;
+              </button>
               <span id="qty-oreo" class="qty-display">0</span>
               <button class="btn-qty" onclick="updateQty('oreo', 1)">+</button>
             </div>
@@ -903,76 +190,77 @@
         <a href="review.html" style="text-decoration: none">
           <div class="section-title-badge">Review</div>
         </a>
-        <div
-          style="
-            text-align: left;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #555;
-          "
-        >
-          Review Dari Customer:
-        </div>
+        <div class="review-section-label">Review Dari Customer:</div>
 
         <div class="review-list">
           <div class="review-card">
             <div class="review-header">
               <div class="avatar">
-                <img
-                  src="https://placehold.co/50x50/purple/white?text=M"
-                  alt="User"
-                />
+                <div class="avatar-circle">M</div>
               </div>
-              <span class="user-badge">Made</span>
-              <div class="stars">★★★★★</div>
+              <div class="review-user-info">
+                <div class="user-badge">Made</div>
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              </div>
             </div>
-            <div class="review-text">" Puddingnya sangat lembut "</div>
+            <div class="review-text">&ldquo; Puddingnya sangat lembut &rdquo;</div>
           </div>
 
           <div class="review-card">
             <div class="review-header">
               <div class="avatar">
-                <img
-                  src="https://placehold.co/50x50/purple/white?text=Q"
-                  alt="User"
-                />
+                <div class="avatar-circle">Q</div>
               </div>
-              <span class="user-badge">Qaiser</span>
-              <div class="stars">★★★★★</div>
+              <div class="review-user-info">
+                <div class="user-badge">Qaiser</div>
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              </div>
             </div>
             <div class="review-text">
-              " Puddingnya lezat dan customer servicenya bagus sekali "
+              &ldquo; Puddingnya lezat dan customer servicenya bagus sekali
+              &rdquo;
             </div>
           </div>
 
           <div class="review-card">
             <div class="review-header">
               <div class="avatar">
-                <img
-                  src="https://placehold.co/50x50/purple/white?text=R"
-                  alt="User"
-                />
+                <div class="avatar-circle">R</div>
               </div>
-              <span class="user-badge">Rheindaru</span>
-              <div class="stars">★★★★★</div>
+              <div class="review-user-info">
+                <div class="user-badge">Rheindaru</div>
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+              </div>
             </div>
             <div class="review-text">
-              " Puddingnya lumer di mulut, bikin nagih! "
+              &ldquo; Puddingnya lumer di mulut, bikin nagih! &rdquo;
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section-box" id="kontak" style="margin-bottom: 30px">
+      <section class="section-box" id="kontak">
         <div class="section-title-badge">Kontak</div>
 
         <div class="contact-item">
-          <div class="icon-circle"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C7.31 0 3.5 3.81 3.5 8.5 3.5 15.25 12 24 12 24s8.5-8.75 8.5-15.5C20.5 3.81 16.69 0 12 0zm0 11.5a3 3 0 110-6 3 3 0 010 6z"
+              />
+            </svg>
+          </div>
           <div class="contact-text">SMKN 1 Kota Bekasi, Ruang D11</div>
         </div>
 
         <a href="#" onclick="processOrder()" class="contact-item">
-          <div class="icon-circle"><i class="fab fa-whatsapp"></i></div>
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+              />
+            </svg>
+          </div>
           <div class="contact-text">+62 882 9029 5374</div>
         </a>
 
@@ -982,131 +270,79 @@
           rel="noreferrer noopener"
           class="contact-item"
         >
-          <div class="icon-circle"><i class="fab fa-instagram"></i></div>
+          <div class="icon-circle">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+              />
+            </svg>
+          </div>
           <div class="contact-text">@P.SReader</div>
         </a>
       </section>
     </div>
 
-    <script>
-      // 1. Data Penyimpanan Jumlah Pesanan
-      let cart = {
-        strawberry: 0,
-        coklat: 0,
-        mangga: 0,
-        oreo: 0,
-      };
-
-      function toggleMenu() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdown.classList.toggle("active");
-      }
-
-      // Close dropdown ketika klik di luar
-      document.addEventListener("click", function (event) {
-        const dropdown = document.getElementById("dropdownMenu");
-        const menuIcon = document.querySelector(".menu-icon");
-        if (
-          !dropdown.contains(event.target) &&
-          !menuIcon.contains(event.target)
-        ) {
-          dropdown.classList.remove("active");
-        }
-      });
-
-      // Scroll ke section
-      function scrollToSection(sectionId) {
-        const section = document.getElementById(sectionId);
-        if (section) {
-          section.scrollIntoView({ behavior: "smooth" });
-          document.getElementById("dropdownMenu").classList.remove("active");
-        }
-      }
-
-      // 2. Fungsi Update Tampilan & Data
-      function updateQty(flavor, change) {
-        // Hitung nilai baru
-        let newVal = cart[flavor] + change;
-
-        // Validasi: Tidak boleh minus
-        if (newVal < 0) newVal = 0;
-
-        // Update data
-        cart[flavor] = newVal;
-
-        // Update tampilan angka di HTML
-        document.getElementById(`qty-${flavor}`).innerText = newVal;
-      }
-
-      // 3. Fungsi Order ke WhatsApp
-      function processOrder() {
-        let message =
-          "Halo Admin Pudding Paradise, saya {isi nama} dari {isi kelas} mau pesan:\n\n";
-        let totalItems = 0;
-
-        // Cek Puding Strawberry
-        if (cart.strawberry > 0) {
-          message += `- Puding Strawberry: ${cart.strawberry} pcs\n`;
-          totalItems += cart.strawberry;
-        }
-
-        // Cek Puding Coklat
-        if (cart.coklat > 0) {
-          message += `- Puding Coklat: ${cart.coklat} pcs\n`;
-          totalItems += cart.coklat;
-        }
-
-        // Cek Puding Mangga
-        if (cart.mangga > 0) {
-          message += `- Puding Mangga: ${cart.mangga} pcs\n`;
-          totalItems += cart.mangga;
-        }
-
-        // Cek Puding Oreo
-        if (cart.oreo > 0) {
-          message += `- Puding Oreo: ${cart.oreo} pcs\n`;
-          totalItems += cart.oreo;
-        }
-
-        // Validasi jika belum ada yang dipesan
-        if (totalItems === 0) {
-          alert(
-            "Bro, pilih dulu jumlah pudingnya ya sebelum order! Minimal 1.",
-          );
-          return;
-        }
-
-        message += "\nTolong diantarkan ke {isi nama ruang} ya, terima kasih!";
-
-        const phoneNumber = "6288290295374";
-        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-        window.open(url, "_blank");
-      }
-    </script>
-
-    <footer
-      style="
-        background: #fff6ff;
-        border-top: 1px solid #d8b5d8;
-        padding: 22px 18px;
-        text-align: center;
-        color: #4a4a4a;
-        font-size: 0.92rem;
-      "
-    >
-      <p style="margin: 0 0 6px">
-        &copy; 2026 Pudding Paradise. All rights reserved.
-      </p>
-      <p style="margin: 0 0 6px">
-        This site is for educational and portfolio purposes. No infringement is
-        intended.
-      </p>
-      <p style="margin: 0">
-        Built with care for a sweet order experience |
-        <a href="puddinghome.html" style="color: #8e6b96; text-decoration: none"
-          >Back to Home</a
-        >
-      </p>
+    <footer class="site-footer">
+      <div class="footer-wave">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+          <path
+            d="M0,50 C240,90 480,10 720,50 C960,90 1200,10 1440,50 L1440,100 L0,100 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img
+            src="images/Group1.png"
+            alt="Pudding Paradise"
+            class="footer-logo"
+            width="44"
+            height="44"
+          />
+          <span class="footer-name">Pudding Paradise</span>
+          <p class="footer-tagline">Dibuat dengan 💜</p>
+        </div>
+        <div class="footer-links">
+          <a href="puddinghome.html" class="footer-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Beranda
+          </a>
+          <a href="menu.html" class="footer-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 11h.01"/><path d="M11 15h.01"/><path d="M16 16h.01"/><path d="M2 16l20 6-6-20A20 20 0 0 0 2 16"/></svg>
+            Menu
+          </a>
+          <a href="review.html" class="footer-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Review
+          </a>
+        </div>
+        <div class="footer-social">
+          <a
+            href="https://wa.me/6288290295374"
+            target="_blank"
+            rel="noreferrer noopener"
+            class="social-icon"
+            title="WhatsApp"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a
+            href="https://www.instagram.com/p.sreader?igsh=MWNsdmZycGIyd2gzMg=="
+            target="_blank"
+            rel="noreferrer noopener"
+            class="social-icon"
+            title="Instagram"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </div>
+        <div class="footer-divider"></div>
+        <p class="footer-copy">&copy; 2026 Pudding Paradise. All rights reserved.</p>
+        <p class="footer-disclaimer">Built with care for a sweet order experience.</p>
+      </div>
     </footer>
+
+    <script src="script.js" defer></script>
   </body>
 </html>

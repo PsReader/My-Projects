@@ -19,7 +19,7 @@ function canUseWorker(): boolean {
 
 export function useHands(
   videoRef: RefObject<HTMLVideoElement>,
-  options?: { useWorker?: boolean },
+  options?: { useWorker?: boolean; lowPerf?: boolean },
 ) {
   const canUseWorkerVal = canUseWorker();
   const [useWorker, setUseWorker] = useState(
@@ -311,10 +311,21 @@ export function useHands(
         if (pendingFramesRef.current < 3) {
           try {
             const bitmap = await createImageBitmap(video);
+            // Downscale for lighter inference on low-perf devices
+            const targetW = options?.lowPerf ? 320 : 640;
+            const targetH = options?.lowPerf ? 240 : 480;
+            let sendBitmap = bitmap;
+            if (bitmap.width > targetW || bitmap.height > targetH) {
+              const oc = new OffscreenCanvas(targetW, targetH);
+              const ctx = oc.getContext("2d")!;
+              ctx.drawImage(bitmap, 0, 0, targetW, targetH);
+              bitmap.close();
+              sendBitmap = await createImageBitmap(oc);
+            }
             pendingFramesRef.current++;
             workerInstance.postMessage(
-              { type: "detect", image: bitmap, timestamp: performance.now() },
-              [bitmap],
+              { type: "detect", image: sendBitmap, timestamp: performance.now() },
+              [sendBitmap],
             );
           } catch {
             // Fallback if createImageBitmap fails

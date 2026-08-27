@@ -33,6 +33,11 @@ const skeletonPairs = [
 ];
 const maxHands = 2;
 
+// Pre-allocated scratch vectors — avoids per-frame GC pressure
+const _zero = new THREE.Vector3(0, 0, 0);
+const _target = new THREE.Vector3();
+const _offscreen = new THREE.Vector3(0, 10, -2);
+
 interface HandSceneProps {
   landmarks: HandLandmark[][];
   shaderMap: Record<number, Record<number, string>>;
@@ -70,6 +75,7 @@ export function HandScene({
   const prevPositionsRef = useRef<Array<THREE.Vector3>>([]);
   const skeletonRefs = useRef<Array<THREE.LineSegments | null>>([]);
   const skeletonGeometryRefs = useRef<Array<THREE.BufferGeometry | null>>([]);
+  const worldPositionsRef = useRef<Array<Array<THREE.Vector3>>>([]);
 
   const activeHands = [
     ...landmarks.slice(0, maxHands),
@@ -86,52 +92,54 @@ export function HandScene({
     const aspect = size.width / Math.max(size.height, 1);
     const worldScaleX = aspect * 1.3;
     const worldScaleY = 1.3;
-    const worldPositions: Array<Array<THREE.Vector3>> = [];
     let motionEnergy = 0;
 
     activeHands.forEach((handLandmarks, handIndex) => {
       const handGroup = handGroupRefs.current[handIndex];
       if (handGroup) {
-        handGroup.position.lerp(new THREE.Vector3(0, 0, 0), 0.24);
+        handGroup.position.lerp(_zero, 0.24);
       }
 
-      const positionsForHand: Array<THREE.Vector3> = [];
+      // Reuse positions array from previous frame instead of allocating
+      const positionsForHand = worldPositionsRef.current[handIndex];
+      if (!positionsForHand) {
+        worldPositionsRef.current[handIndex] = new Array(21).fill(null).map(() => new THREE.Vector3());
+      }
+      const handPositions = worldPositionsRef.current[handIndex]!;
 
       jointIndices.forEach((jointIndex, index) => {
         const jointGroup = jointGroupRefs.current[handIndex]?.[index];
         const mesh = meshRefs.current[handIndex]?.[index];
         const landmark = handLandmarks[jointIndex];
 
-        // When no hand is tracked, fall back to previous position or
-        // push offscreen so joints don't appear as ghosts
         const prev = prevPositionsRef.current[handIndex * 21 + index];
-        const fallbackTarget =
-          prev?.clone() ??
-          new THREE.Vector3(
-            0,
-            10, // offscreen above viewport
-            -2,
-          );
 
-        const target = landmark
-          ? new THREE.Vector3(
-              (landmark.x - 0.5) * worldScaleX,
-              (0.5 - landmark.y) * worldScaleY,
-              (landmark.z ?? 0) * 0.35,
-            )
-          : fallbackTarget.clone();
+        // Mutate _target instead of allocating new Vector3
+        if (landmark) {
+          _target.set(
+            (landmark.x - 0.5) * worldScaleX,
+            (0.5 - landmark.y) * worldScaleY,
+            (landmark.z ?? 0) * 0.35,
+          );
+        } else if (prev) {
+          _target.copy(prev);
+        } else {
+          _target.copy(_offscreen);
+        }
 
         const smoothFactor = landmark ? 0.72 : 0.2;
-        const smoothed = prev
-          ? prev.clone().lerp(target, smoothFactor)
-          : target.clone();
-        const velocity = target.distanceTo(prev ?? target);
+        if (prev) {
+          prev.lerp(_target, smoothFactor);
+        } else {
+          prevPositionsRef.current[handIndex * 21 + index] = _target.clone();
+        }
+        const currentPos = prevPositionsRef.current[handIndex * 21 + index]!;
+        const velocity = _target.distanceTo(currentPos);
         motionEnergy += velocity;
-        prevPositionsRef.current[handIndex * 21 + index] = smoothed;
-        positionsForHand[index] = smoothed.clone();
+        handPositions[index].copy(currentPos);
 
         if (jointGroup) {
-          jointGroup.position.lerp(smoothed, 0.85);
+          jointGroup.position.lerp(currentPos, 0.85);
         }
 
         if (mesh) {
@@ -153,30 +161,25 @@ export function HandScene({
         }
       });
 
-      worldPositions[handIndex] = positionsForHand;
-
       const skeletonGeometry = skeletonGeometryRefs.current[handIndex];
-      if (skeletonGeometry && positionsForHand.length) {
-        const positions: number[] = [];
+      if (skeletonGeometry && handPositions.length) {
+        // Mutate the existing Float32Array instead of recreating the attribute
+        const posAttr = skeletonGeometry.attributes.position as THREE.BufferAttribute;
+        const arr = posAttr.array as Float32Array;
+        let writeIdx = 0;
         skeletonPairs.forEach(([from, to]) => {
-          const fromPoint = positionsForHand[from];
-          const toPoint = positionsForHand[to];
+          const fromPoint = handPositions[from];
+          const toPoint = handPositions[to];
           if (fromPoint && toPoint) {
-            positions.push(
-              fromPoint.x,
-              fromPoint.y,
-              fromPoint.z,
-              toPoint.x,
-              toPoint.y,
-              toPoint.z,
-            );
+            arr[writeIdx++] = fromPoint.x;
+            arr[writeIdx++] = fromPoint.y;
+            arr[writeIdx++] = fromPoint.z;
+            arr[writeIdx++] = toPoint.x;
+            arr[writeIdx++] = toPoint.y;
+            arr[writeIdx++] = toPoint.z;
           }
         });
-        skeletonGeometry.setAttribute(
-          "position",
-          new THREE.Float32BufferAttribute(positions, 3),
-        );
-        skeletonGeometry.attributes.position.needsUpdate = true;
+        posAttr.needsUpdate = true;
       }
     });
 
@@ -244,6 +247,11 @@ export function HandScene({
               <bufferGeometry
                 ref={(node) => {
                   skeletonGeometryRefs.current[handIndex] = node;
+                  if (node) {
+                    // Pre-allocate buffer: 20 bone pairs × 2 points × 3 coords = 120 floats
+                    const arr = new Float32Array(120);
+                    node.setAttribute("position", new THREE.BufferAttribute(arr, 3));
+                  }
                 }}
               />
               <lineBasicMaterial

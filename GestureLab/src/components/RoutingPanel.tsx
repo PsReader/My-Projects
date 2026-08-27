@@ -9,8 +9,6 @@ interface RoutingPanelProps {
   hasDetectedHand: boolean;
   error: string | null;
   onScreenshot?: () => void;
-  onGifCapture?: () => void;
-  isCapturingGif?: boolean;
   onNavToggle: () => void;
   onReset: () => void;
   interactives: InteractiveDefinition[];
@@ -27,8 +25,6 @@ export function RoutingPanel({
   hasDetectedHand,
   error,
   onScreenshot,
-  onGifCapture,
-  isCapturingGif,
   onNavToggle,
   onReset,
   interactives,
@@ -97,16 +93,6 @@ export function RoutingPanel({
                 <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
                 <circle cx="12" cy="13" r="4"/>
               </svg>
-            </button>
-            <button className="drawer-action-btn" onClick={onGifCapture} title={isCapturingGif ? "Stop Recording" : "Record GIF"}>
-              {isCapturingGif ? (
-                <span className="recording-dot" style={{ width: 6, height: 6 }} />
-              ) : (
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <circle cx="12" cy="12" r="6" fill="currentColor"/>
-                </svg>
-              )}
             </button>
           </div>
         </div>

@@ -5,10 +5,10 @@ import { captureStore, type CaptureApi } from "../captureStore";
 
 export function CaptureBridge() {
   const gl = useThree((state) => state.gl);
-  const { takeScreenshot, startGifCapture, isCapturingGif } = useCapture(gl);
+  const { takeScreenshot } = useCapture(gl);
   const api = useMemo<CaptureApi>(
-    () => ({ takeScreenshot, startGifCapture, isCapturingGif }),
-    [takeScreenshot, startGifCapture, isCapturingGif],
+    () => ({ takeScreenshot }),
+    [takeScreenshot],
   );
   useEffect(() => {
     captureStore.setCapture(api);

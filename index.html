@@ -8,21 +8,19 @@
       content="PsReader — Vocational school student specializing in responsive web layouts, semantic HTML, CSS, and vanilla JavaScript. Browse live projects and source code."
     />
     <title>PsReader — Live Demos Hub</title>
-    <link rel="icon" href="https://github.com/PsReader.png" />
+    <link rel="icon" type="image/svg+xml" id="favicon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23881798'/%3E%3Cstop offset='50%25' stop-color='%23b348c2'/%3E%3Cstop offset='100%25' stop-color='%23e38ff0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Cg fill='white'%3E%3Crect x='6.4' y='6.7' width='4.8' height='18.7' rx='0.5'/%3E%3Cpath d='M11.2 6.7h6.9a5.9 5.9 0 0 1 0 11.2h-6.9v-4.8h6.9a1.1 1.1 0 0 0 0-1.6h-6.9z'/%3E%3Cpath d='M15.5 19.7l5.6 5.6h6.9l-5.6-5.6z'/%3E%3C/g%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
       rel="stylesheet"
-    />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23881798'/%3E%3Ctext x='16' y='22.5' font-family='Arial,sans-serif' font-size='17' font-weight='700' text-anchor='middle' fill='white'%3EP%3C/text%3E%3C/svg%3E"
+      media="print"
+      onload="this.media='all'"
     />
     <!-- Satoshi font -->
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
     <!-- Lenis smooth scroll -->
-    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css" />
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.26/dist/lenis.css" media="print" onload="this.media='all'" />
     <style>
       .hero-subtitle {
         font-size: 0.95rem;
@@ -200,32 +198,33 @@
         letter-spacing: -0.03em;
       }
 
-      .wordmark-avatar {
+      .brand-logo {
         width: 36px;
         height: 36px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 1.5px solid var(--border-hover);
-        transition:
-          border-color 250ms var(--ease),
-          transform 300ms var(--ease-spring);
         flex-shrink: 0;
+        border-radius: 8px;
+        color: transparent;
+        background: linear-gradient(135deg, var(--logo-c1, #881798), var(--logo-c2, #b348c2), var(--logo-c3, #e38ff0));
+        -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg%3E%3Crect x='24' y='25' width='18' height='70'/%3E%3Cpath d='M42 25H68A22 22 0 0168 69H42V51H68A4 4 0 0068 43H42Z'/%3E%3Cpath d='M58 74L79 95H105L84 74Z'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+        mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg%3E%3Crect x='24' y='25' width='18' height='70'/%3E%3Cpath d='M42 25H68A22 22 0 0168 69H42V51H68A4 4 0 0068 43H42Z'/%3E%3Cpath d='M58 74L79 95H105L84 74Z'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+        transition: transform 300ms var(--ease-spring);
       }
-      .wordmark:hover .wordmark-avatar {
-        border-color: var(--accent);
+      .wordmark:hover .brand-logo {
         transform: scale(1.08);
       }
       .wordmark-text {
         color: var(--text-primary);
+        transition: font-weight 0.3s ease;
       }
       .wordmark-text:hover {
         color: var(--accent-hover);
+        font-weight: 800;
       }
 
       .wordmark-avatar-link {
         display: inline-flex;
         line-height: 0;
-        border-radius: 50%;
+        border-radius: 8px;
       }
 
       .header-nav {
@@ -391,7 +390,6 @@
         width: 0%;
         background: var(--accent);
         border-radius: 2px;
-        transition: width 100ms linear;
       }
       .music-progress-bar:hover .music-progress-fill { background: var(--accent); }
       .music-progress-bar:hover::after {
@@ -415,6 +413,15 @@
         font-size: 0.6875rem;
         color: var(--text-tertiary);
         font-variant-numeric: tabular-nums;
+      }
+      .music-visualizer {
+        padding: 0 14px 4px;
+      }
+      .music-visualizer canvas {
+        width: 100%;
+        height: 32px;
+        display: block;
+        border-radius: 4px;
       }
       .music-controls {
         display: flex;
@@ -538,11 +545,11 @@
       }
       .music-more-link:hover { color: var(--accent-hover); }
 
-      [data-theme="ocean"] { --accent: #0077b6; --accent-hover: #00b4d8; --accent-muted: rgba(0,119,182,0.12); --accent-light: #90cdf4; }
-      [data-theme="emerald"] { --accent: #059669; --accent-hover: #34d399; --accent-muted: rgba(5,150,105,0.12); --accent-light: #6ee7b7; }
-      [data-theme="sunset"] { --accent: #ea580c; --accent-hover: #fb923c; --accent-muted: rgba(234,88,12,0.12); --accent-light: #fdba74; }
-      [data-theme="lavender"] { --accent: #7c3aed; --accent-hover: #a78bfa; --accent-muted: rgba(124,58,237,0.12); --accent-light: #c4b5fd; }
-      [data-theme="default"] { --accent: #881798; --accent-hover: #b348c2; --accent-muted: rgba(136,23,152,0.12); --accent-light: #e38ff0; }
+      [data-theme="ocean"] { --accent: #0077b6; --accent-hover: #00b4d8; --accent-muted: rgba(0,119,182,0.12); --accent-light: #90cdf4; --logo-c1: #0077b6; --logo-c2: #00b4d8; --logo-c3: #90cdf4; }
+      [data-theme="emerald"] { --accent: #059669; --accent-hover: #34d399; --accent-muted: rgba(5,150,105,0.12); --accent-light: #6ee7b7; --logo-c1: #059669; --logo-c2: #34d399; --logo-c3: #6ee7b7; }
+      [data-theme="sunset"] { --accent: #ea580c; --accent-hover: #fb923c; --accent-muted: rgba(234,88,12,0.12); --accent-light: #fdba74; --logo-c1: #ea580c; --logo-c2: #fb923c; --logo-c3: #fdba74; }
+      [data-theme="lavender"] { --accent: #7c3aed; --accent-hover: #a78bfa; --accent-muted: rgba(124,58,237,0.12); --accent-light: #c4b5fd; --logo-c1: #7c3aed; --logo-c2: #a78bfa; --logo-c3: #c4b5fd; }
+      [data-theme="default"] { --accent: #881798; --accent-hover: #b348c2; --accent-muted: rgba(136,23,152,0.12); --accent-light: #e38ff0; --logo-c1: #881798; --logo-c2: #b348c2; --logo-c3: #e38ff0; }
 
       /* Light mode — active when html.dark is removed */
       html:not(.dark) {
@@ -686,6 +693,22 @@
       }
       @media (hover: none), (pointer: coarse) {
         .cursor-dot, .cursor-ring, .cursor-splatter { display: none; }
+      }
+      @media (max-width: 768px) {
+        .site-header {
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          background: rgba(11, 13, 19, 0.92);
+        }
+        .stack-scroll-wrapper canvas {
+          display: none;
+        }
+        .stack-grid--mobile {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+          width: 100%;
+        }
       }
 
       /* =================================================================
@@ -917,12 +940,14 @@
         border-radius: var(--radius);
         transition:
           background 150ms var(--ease),
-          color 150ms var(--ease);
+          color 150ms var(--ease),
+          font-weight 300ms ease;
         position: relative;
       }
       .header-nav a:hover {
         background: var(--accent-muted);
         color: var(--text-primary);
+        font-weight: 800;
       }
       .header-nav a.active {
         color: var(--text-primary);
@@ -981,7 +1006,7 @@
         padding: 120px 24px 80px;
         max-width: var(--max-w);
         margin: 0 auto;
-        overflow: hidden;
+        overflow: clip;
       }
 
       @media (max-width: 900px) {
@@ -1143,19 +1168,19 @@
       .hero-accent-word {
         color: var(--accent);
         font-style: italic;
-        transition: color 0.2s;
+        transition: color 0.2s, font-weight 0.3s ease;
       }
       .hero-accent-word:hover {
         color: var(--accent-hover);
+        font-weight: 800;
       }
 
       /* Hero grain overlay */
       .hero-grain {
         position: absolute;
         inset: 0;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-        background-repeat: repeat;
-        background-size: 200px 200px;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
         opacity: 0.04;
         pointer-events: none;
         z-index: 0;
@@ -1164,19 +1189,6 @@
       /* Staggered line reveal */
       .hero-line {
         display: block;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: heroLineIn 0.7s var(--ease-premium) forwards;
-      }
-      .hero-line:nth-child(1) { animation-delay: 0.1s; }
-      .hero-line:nth-child(2) { animation-delay: 0.25s; }
-      .hero-line:nth-child(3) { animation-delay: 0.4s; }
-
-      @keyframes heroLineIn {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
       }
 
       .hero-desc {
@@ -1233,30 +1245,47 @@
       }
 
       /* =================================================================
-         STATEMENT BAND
+         MARQUEE
          ================================================================= */
-      .statement-band {
+      .marquee {
         max-width: 100%;
-        margin: 0 auto;
-        padding: 48px 24px;
-        text-align: center;
-        background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 8%, transparent), transparent);
+        overflow: hidden;
+        padding: 48px 0;
+        margin-bottom: 24px;
         border-top: 1px solid color-mix(in srgb, var(--accent) 12%, transparent);
         border-bottom: 1px solid color-mix(in srgb, var(--accent) 12%, transparent);
+        background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 8%, transparent), transparent);
       }
-      .statement-text {
-        max-width: var(--max-w);
-        margin: 0 auto;
+      .marquee-track {
+        display: flex;
+        gap: 480px;
+        width: max-content;
+        animation: marquee-scroll 20s linear infinite;
+      }
+      .marquee-group {
+        display: flex;
+        width: max-content;
+      }
+      .marquee-item {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 0 240px;
         font-family: var(--font-display);
-        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        font-size: clamp(2rem, 5vw, 3.25rem);
         font-weight: 700;
         color: var(--text-primary);
         letter-spacing: -0.02em;
         line-height: 1.2;
       }
-      .statement-accent {
+      .marquee-item em {
         color: var(--accent);
         font-style: italic;
+      }
+      @keyframes marquee-scroll {
+        to { transform: translateX(-50%); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .marquee-track { animation-play-state: paused; }
       }
 
       /* =================================================================
@@ -1567,6 +1596,10 @@
         width: 14px;
         height: 14px;
         flex-shrink: 0;
+        transition: transform 0.2s ease;
+      }
+      .btn--primary:hover svg {
+        transform: translateX(3px);
       }
 
       .btn--primary {
@@ -1577,7 +1610,8 @@
         transition:
           background 400ms var(--ease-premium),
           transform 400ms var(--ease-premium),
-          box-shadow 400ms var(--ease-premium);
+          box-shadow 400ms var(--ease-premium),
+          font-weight 300ms ease;
       }
 
       /* Shimmer sweep effect on primary buttons */
@@ -1603,6 +1637,7 @@
       .btn--primary:hover {
         background: var(--accent-hover);
         color: #fff;
+        font-weight: 800;
         box-shadow:
           0 10px 34px color-mix(in srgb, var(--accent) 38%, transparent),
           0 0 0 1px rgba(227, 143, 240, 0.25);
@@ -1682,6 +1717,12 @@
         overflow: hidden;
         position: relative;
         margin-top: 36px;
+        border-radius: 16px;
+        background: radial-gradient(
+          ellipse 80% 70% at 50% 50%,
+          color-mix(in srgb, var(--accent) 8%, transparent),
+          transparent 70%
+        );
       }
 
       .stack-grid {
@@ -1689,6 +1730,10 @@
         gap: 20px;
         width: max-content;
         padding-right: 60px;
+      }
+
+      .stack-grid--mobile {
+        display: none;
       }
 
       .stack-card {
@@ -1859,53 +1904,99 @@
          ================================================================= */
       .site-footer {
         border-top: 1px solid var(--border);
-        padding: 32px 24px;
+        padding: 40px 24px 28px;
         position: relative;
+        text-align: center;
       }
 
-      /* Gradient accent line at the top of footer */
       .site-footer::before {
         content: "";
         position: absolute;
         top: -1px;
         left: 50%;
         transform: translateX(-50%);
-        width: min(200px, 40%);
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--accent),
-          transparent
-        );
+        width: min(280px, 60%);
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        border-radius: 2px;
       }
 
       .footer-inner {
         max-width: var(--max-w);
         margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
       }
 
-      .footer-copy {
-        font-size: 0.75rem;
-        color: var(--text-tertiary);
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+
+      .footer-logo {
+        color: var(--accent);
+        filter: drop-shadow(0 0 8px color-mix(in srgb, var(--accent) 35%, transparent));
+      }
+
+      .footer-name {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: var(--text-primary);
+      }
+
+      .footer-tagline {
+        margin: 0 auto 16px;
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        font-style: italic;
+        line-height: 1.5;
+      }
+
+      .footer-divider {
+        width: 48px;
+        height: 1px;
+        margin: 0 auto 16px;
+        background: var(--border);
       }
 
       .footer-nav {
         display: flex;
-        gap: 24px;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 16px;
       }
-      .footer-nav a {
+
+      .footer-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
         font-size: 0.75rem;
         color: var(--text-tertiary);
-        transition: color 150ms var(--ease);
+        text-decoration: none;
+        transition: color 150ms var(--ease), border-color 150ms var(--ease), box-shadow 150ms var(--ease);
       }
-      .footer-nav a:hover {
-        color: var(--text-secondary);
+
+      .footer-pill:hover {
+        color: var(--accent);
+        border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+        box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 12%, transparent);
+      }
+
+      .footer-pill svg {
+        width: 13px;
+        height: 13px;
+        flex-shrink: 0;
+      }
+
+      .footer-copy {
+        font-size: 0.7rem;
+        color: var(--text-tertiary);
+        opacity: 0.7;
       }
 
       /* =================================================================
@@ -2109,9 +2200,7 @@
         }
 
         .footer-inner {
-          flex-direction: column;
           text-align: center;
-          gap: 16px;
         }
 
         .footer-nav {
@@ -2120,6 +2209,37 @@
 
         .stack-grid {
           flex-direction: column;
+        }
+
+        .stack-grid--mobile {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+
+        .stack-card {
+          width: auto;
+          min-width: 0;
+          padding: 18px 14px;
+        }
+
+        .stack-card-icon {
+          width: 30px;
+          height: 30px;
+          margin-bottom: 10px;
+        }
+
+        .stack-card-icon svg {
+          width: 15px;
+          height: 15px;
+        }
+
+        .stack-card h3 {
+          font-size: 0.8125rem;
+        }
+
+        .stack-card-desc {
+          font-size: 0.75rem;
+          margin-top: 8px;
         }
 
         .about-body p {
@@ -2188,6 +2308,10 @@
           flex-direction: column;
         }
 
+        .stack-grid--mobile {
+          grid-template-columns: 1fr;
+        }
+
         .project-body {
           padding: 14px 16px 18px;
         }
@@ -2254,6 +2378,21 @@
           transition: none;
         }
       }
+
+      /* =================================================================
+         PAGE TRANSITIONS — View Transitions API
+         ================================================================= */
+      @media (prefers-reduced-motion: no-preference) {
+        @view-transition { navigation: auto; }
+        ::view-transition-old(root) {
+          animation: wipe-out 0.4s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+        }
+        ::view-transition-new(root) {
+          animation: wipe-in 0.4s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+        }
+      }
+      @keyframes wipe-out { to { transform: translateX(-100%); } }
+      @keyframes wipe-in  { from { transform: translateX(100%); } }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -2295,19 +2434,17 @@
         <div class="header-inner">
           <div class="wordmark">
             <a
-              href="https://github.com/PsReader"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="PsReader on GitHub"
+              href="index.html"
               class="wordmark-avatar-link"
+              aria-label="PsReader — home"
             >
-              <img
-                src="https://github.com/PsReader.png?size=56"
-                alt="PsReader avatar"
-                class="wordmark-avatar"
-                width="28"
-                height="28"
-              />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="brand-logo" width="36" height="36" aria-hidden="true">
+                <g fill="currentColor">
+                  <rect class="logo-stem" x="24" y="25" width="18" height="70" />
+                  <path class="logo-bowl" d="M 42 25 H 68 A 22 22 0 0 1 68 69 H 42 V 51 H 68 A 4 4 0 0 0 68 43 H 42 Z" />
+                  <path class="logo-leg" d="M 58 74 L 79 95 H 105 L 84 74 Z" />
+                </g>
+              </svg>
             </a>
             <a
               href="index.html"
@@ -2391,6 +2528,9 @@
                   <div class="music-progress-fill" id="musicProgressFill"></div>
                 </div>
               </div>
+              <div class="music-visualizer">
+                <canvas id="musicVisualizer" height="32"></canvas>
+              </div>
               <div class="music-time-row">
                 <span class="music-time" id="musicTimeCurrent">0:00</span>
                 <span class="music-time" id="musicTimeDuration">0:00</span>
@@ -2447,15 +2587,15 @@
                   <span class="music-track-num">5</span>
                   <span class="music-track-name">Long Road Home</span>
                 </button>
-                <button class="music-track" data-idx="5" data-src="music/still-water.WAV" data-artist="Mr. Cursor" data-source="https://mr-cursor.itch.io/4-random-lofi-beats" data-license="CC0 1.0 Universal" data-art="linear-gradient(135deg,#f5576c,#ff6b9d)">
+                <button class="music-track" data-idx="5" data-src="music/still-water.mp3" data-artist="Mr. Cursor" data-source="https://mr-cursor.itch.io/4-random-lofi-beats" data-license="CC0 1.0 Universal" data-art="linear-gradient(135deg,#f5576c,#ff6b9d)">
                   <span class="music-track-num">6</span>
                   <span class="music-track-name">Still Water</span>
                 </button>
-                <button class="music-track" data-idx="6" data-src="music/morning-light.WAV" data-artist="Mr. Cursor" data-source="https://mr-cursor.itch.io/4-random-lofi-beats" data-license="CC0 1.0 Universal" data-art="linear-gradient(135deg,#ffd89b,#19547b)">
+                <button class="music-track" data-idx="6" data-src="music/morning-light.mp3" data-artist="Mr. Cursor" data-source="https://mr-cursor.itch.io/4-random-lofi-beats" data-license="CC0 1.0 Universal" data-art="linear-gradient(135deg,#ffd89b,#19547b)">
                   <span class="music-track-num">7</span>
                   <span class="music-track-name">Morning Light</span>
                 </button>
-                <button class="music-track" data-idx="7" data-src="music/rising-tide.WAV" data-artist="Mr. Cursor" data-source="https://mr-cursor.itch.io/4-random-lofi-beats" data-license="CC0 1.0 Universal" data-art="linear-gradient(135deg,#43e97b,#38f9d7)">
+                <button class="music-track" data-idx="7" data-src="music/rising-tide.mp3" data-artist="Mr. Cursor" data-source="https://mr-cursor.itch.io/4-random-lofi-beats" data-license="CC0 1.0 Universal" data-art="linear-gradient(135deg,#43e97b,#38f9d7)">
                   <span class="music-track-num">8</span>
                   <span class="music-track-name">Rising Tide</span>
                 </button>
@@ -2479,7 +2619,7 @@
          HERO
          ============================================================ -->
       <section class="hero" aria-label="Introduction">
-        <div class="hero-grain" aria-hidden="true"></div>
+        <canvas class="hero-grain" aria-hidden="true" width="256" height="256"></canvas>
         <div class="hero-orb" aria-hidden="true"></div>
         <div class="hero-content">
           <span class="hero-eyebrow hero-animate">Live Demos Hub</span>
@@ -2532,10 +2672,15 @@
         <div class="hero-spotlight" aria-hidden="true"></div>
       </section>
 
-      <div class="statement-band" aria-label="Statement">
-        <p class="statement-text">
-          I build interfaces that feel <span class="statement-accent">alive</span>.
-        </p>
+      <div class="marquee" aria-label="Statement">
+        <div class="marquee-track">
+          <span class="marquee-group">
+            <span class="marquee-item">I build interfaces that feel <em>alive</em>.</span>
+          </span>
+          <span class="marquee-group" aria-hidden="true">
+            <span class="marquee-item">I build interfaces that feel <em>alive</em>.</span>
+          </span>
+        </div>
       </div>
 
       <div class="stats-strip">
@@ -2732,7 +2877,7 @@
                 </div>
                 <div class="project-viewport project-viewport--gesturelab">
                   <img
-                    src="GestureLab/gesturelab-logo.svg"
+                    src="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20400%20320%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20role%3D%22img%22%20aria-label%3D%22GestureLab%20%C3%A2%E2%82%AC%E2%80%9D%20open%20palm%20with%20AR%20tracking%20reticle%22%3E%3Ctitle%3EGestureLab%3C%2Ftitle%3E%3Cdefs%3E%3CradialGradient%20id%3D%22bgGrad%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2275%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23202A52%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230B0E1C%22%2F%3E%3C%2FradialGradient%3E%3CradialGradient%20id%3D%22glowGrad%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2245%25%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232DD4BF%22%20stop-opacity%3D%220.16%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%232DD4BF%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3ClinearGradient%20id%3D%22handGrad%22%20gradientUnits%3D%22userSpaceOnUse%22%20x1%3D%22110%22%20y1%3D%2260%22%20x2%3D%22272%22%20y2%3D%22250%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232DD4BF%22%2F%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%236EB0FF%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22400%22%20height%3D%22320%22%20fill%3D%22url(%23bgGrad)%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22400%22%20height%3D%22320%22%20fill%3D%22url(%23glowGrad)%22%2F%3E%3Cg%20stroke%3D%22%232DD4BF%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%224%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M%20124%2070%20L%20124%20100%20L%20154%20100%22%2F%3E%3Cpath%20d%3D%22M%20246%20100%20L%20276%20100%20L%20276%2070%22%2F%3E%3Cpath%20d%3D%22M%20276%20250%20L%20276%20220%20L%20246%20220%22%2F%3E%3Cpath%20d%3D%22M%20154%20220%20L%20124%20220%20L%20124%20250%22%2F%3E%3C%2Fg%3E%3Cg%20id%3D%22mark%22%20transform%3D%22translate(8.75%2C%205)%22%3E%3Crect%20x%3D%22128%22%20y%3D%22150%22%20width%3D%22144%22%20height%3D%22100%22%20rx%3D%2220%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Crect%20x%3D%22244%22%20y%3D%2274%22%20width%3D%2224%22%20height%3D%22104%22%20rx%3D%2212%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Crect%20x%3D%22212%22%20y%3D%2260%22%20width%3D%2224%22%20height%3D%22118%22%20rx%3D%2212%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Crect%20x%3D%22180%22%20y%3D%2268%22%20width%3D%2224%22%20height%3D%22110%22%20rx%3D%2212%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Crect%20x%3D%22148%22%20y%3D%2278%22%20width%3D%2224%22%20height%3D%22100%22%20rx%3D%2212%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Crect%20x%3D%22124%22%20y%3D%2282%22%20width%3D%2226%22%20height%3D%2298%22%20rx%3D%2213%22%20transform%3D%22rotate(-8%20138%20180)%22%20fill%3D%22url(%23handGrad)%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%3E%3Ccircle%20cx%3D%22200%22%20cy%3D%22200%22%20r%3D%2234%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.8%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%22200%22%20cy%3D%22200%22%20r%3D%2222%22%20stroke%3D%22%235EEAD4%22%20stroke-opacity%3D%220.95%22%20stroke-width%3D%222.5%22%2F%3E%3Cline%20x1%3D%22200%22%20y1%3D%22156%22%20x2%3D%22200%22%20y2%3D%22166%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223%22%2F%3E%3Cline%20x1%3D%22200%22%20y1%3D%22234%22%20x2%3D%22200%22%20y2%3D%22244%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223%22%2F%3E%3Cline%20x1%3D%22156%22%20y1%3D%22200%22%20x2%3D%22166%22%20y2%3D%22200%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223%22%2F%3E%3Cline%20x1%3D%22234%22%20y1%3D%22200%22%20x2%3D%22244%22%20y2%3D%22200%22%20stroke%3D%22%23FFFFFF%22%20stroke-opacity%3D%220.85%22%20stroke-width%3D%223%22%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%22200%22%20cy%3D%22200%22%20r%3D%224%22%20fill%3D%22%235EEAD4%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"
                     alt="GestureLab, augmented reality prototype preview"
                     loading="lazy"
                   />
@@ -2745,8 +2890,7 @@
                   <p>
                     The most technical project here. A React app that tracks your
                     hand through the webcam using MediaPipe, then renders interactive
-                    3D objects with Three.js shaders. Includes GIF recording and a
-                    dark-glass UI.
+                    3D objects with Three.js shaders. Dark-glass UI.
                   </p>
                   <div class="project-cta">
                     <a
@@ -2924,6 +3068,68 @@
 
         <!-- Tech Stack constellation (Three.js) -->
         <div class="stack-scroll-wrapper reveal stagger-4">
+          <div class="stack-grid--mobile">
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#e44d26"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+              <h3>HTML5</h3>
+              <p class="stack-card-desc">Semantic markup, accessible structure.</p>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#264de4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+              <h3>CSS3</h3>
+              <p class="stack-card-desc">Responsive layouts, animations, grid.</p>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#f7df1e"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+              <h3>JavaScript</h3>
+              <p class="stack-card-desc">DOM manipulation, ES modules, APIs.</p>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#3178c6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg></div>
+              <h3>TypeScript</h3>
+              <p class="stack-card-desc">Type-safe code, better DX.</p>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#61dafb"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/></svg></div>
+              <h3>React</h3>
+              <p class="stack-card-desc">Component-based UI, hooks, state.</p>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#fff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+              <h3>Three.js</h3>
+              <p class="stack-card-desc">3D scenes, shaders, WebGL rendering.</p>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#88ce02"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg></div>
+              <h3>GSAP</h3>
+              <p class="stack-card-desc">Scroll-triggered animation, timelines.</p>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#38bdf8"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></svg></div>
+              <h3>Tailwind</h3>
+              <p class="stack-card-desc">Utility-first CSS, rapid prototyping.</p>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#f05032"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></div>
+              <h3>Git</h3>
+              <p class="stack-card-desc">Version control, branching, collaboration.</p>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#a259ff"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+              <h3>Figma</h3>
+              <p class="stack-card-desc">UI design, prototyping, design systems.</p>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#5586a4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+              <h3>GLSL</h3>
+              <p class="stack-card-desc">Fragment shaders, GPU effects.</p>
+            </div>
+            <div class="stack-card">
+              <div class="stack-card-icon" style="color:#68a063"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
+              <h3>Node.js</h3>
+              <p class="stack-card-desc">Server-side JS, tooling, build systems.</p>
+            </div>
+          </div>
           <canvas id="skillsCanvas" style="width:100%;height:400px;display:block;border-radius:16px;"></canvas>
         </div>
 
@@ -3081,102 +3287,43 @@
          ============================================================ -->
       <footer class="site-footer">
         <div class="footer-inner">
-          <span class="footer-copy">&copy; 2026 PsReader — Live Demos Hub</span>
-          <span class="footer-copy"
-            >This site is for educational and portfolio purposes. No
-            infringement is intended.</span
-          >
+          <div class="footer-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" class="footer-logo" width="28" height="28" aria-hidden="true">
+              <g fill="currentColor">
+                <rect class="logo-stem" x="24" y="25" width="18" height="70" />
+                <path class="logo-bowl" d="M 42 25 H 68 A 22 22 0 0 1 68 69 H 42 V 51 H 68 A 4 4 0 0 0 68 43 H 42 Z" />
+                <path class="logo-leg" d="M 58 74 L 79 95 H 105 L 84 74 Z" />
+              </g>
+            </svg>
+            <span class="footer-name">PsReader</span>
+          </div>
+          <p class="footer-tagline">I build things that feel alive in the browser.</p>
+          <div class="footer-divider"></div>
           <nav class="footer-nav" aria-label="Footer navigation">
-            <a href="#work" title="View demos">Demos</a>
-            <a href="#about" title="Tech stack">Tech Stack</a>
-            <a href="mailto:simanjuntakpedrosa@gmail.com" title="Email me">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect x="2" y="4" width="20" height="16" rx="2" />
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-              </svg>
+            <a href="#work" class="footer-pill">Demos</a>
+            <a href="#about" class="footer-pill">Tech Stack</a>
+            <a href="mailto:simanjuntakpedrosa@gmail.com" class="footer-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              Email
             </a>
-            <a
-              href="https://wa.me/628829029537"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="WhatsApp"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path
-                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"
-                />
-              </svg>
+            <a href="https://wa.me/628829029537" target="_blank" rel="noopener noreferrer" class="footer-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+              WhatsApp
             </a>
-            <a
-              href="https://instagram.com/p.sreader"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Instagram"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <circle cx="17.5" cy="6.5" r="1.5" />
-              </svg>
+            <a href="https://instagram.com/p.sreader" target="_blank" rel="noopener noreferrer" class="footer-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+              Instagram
             </a>
-            <a
-              href="https://github.com/PsReader"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="GitHub"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path
-                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                />
-              </svg>
+            <a href="https://github.com/PsReader" target="_blank" rel="noopener noreferrer" class="footer-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
             </a>
-            <a
-              href="https://www.linkedin.com/in/pedrosa-simanjuntak-20a6b2420"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="LinkedIn"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-              >
-                <path
-                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"
-                />
-              </svg>
+            <a href="https://www.linkedin.com/in/pedrosa-simanjuntak-20a6b2420" target="_blank" rel="noopener noreferrer" class="footer-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
+              LinkedIn
             </a>
           </nav>
+          <p class="footer-copy">&copy; 2026 &middot; Educational &amp; portfolio purposes</p>
         </div>
       </footer>
 
@@ -3188,6 +3335,7 @@
           typeof gsap !== "undefined" &&
           typeof ScrollTrigger !== "undefined" &&
           typeof ScrollToPlugin !== "undefined";
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         // ===== Theme Switcher =====
         const themeToggle = document.getElementById("themeToggle");
@@ -3218,11 +3366,35 @@
             localStorage.setItem("ps-accent", accent);
             document.querySelectorAll(".color-dot").forEach((d) => d.classList.remove("active"));
             dot.classList.add("active");
+            updateFavicon();
           });
         });
 
+        // ===== Dynamic Favicon (PR Logo) =====
+        const faviconAccentMap = {
+          default: ["%23881798", "%23b348c2", "%23e38ff0"],
+          ocean: ["%230077b6", "%2300b4d8", "%2390cdf4"],
+          emerald: ["%23059669", "%2334d399", "%236ee7b7"],
+          sunset: ["%23ea580c", "%23fb923c", "%23fdba74"],
+          lavender: ["%237c3aed", "%23a78bfa", "%23c4b5fd"],
+        };
+        function updateFavicon() {
+          const theme = document.documentElement.getAttribute("data-theme") || "default";
+          const [c1, c2, c3] = faviconAccentMap[theme] || faviconAccentMap.default;
+          const svg = `%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='${c1}'/%3E%3Cstop offset='50%25' stop-color='${c2}'/%3E%3Cstop offset='100%25' stop-color='${c3}'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23g)'/%3E%3Cg fill='white'%3E%3Crect x='6.4' y='6.7' width='4.8' height='18.7' rx='0.5'/%3E%3Cpath d='M11.2 6.7h6.9a5.9 5.9 0 0 1 0 11.2h-6.9v-4.8h6.9a1.1 1.1 0 0 0 0-1.6h-6.9z'/%3E%3Cpath d='M15.5 19.7l5.6 5.6h6.9l-5.6-5.6z'/%3E%3C/g%3E%3C/svg%3E`;
+          document.getElementById("favicon").href = "data:image/svg+xml," + svg;
+        }
+        updateFavicon();
+
         if (hasGsap) {
           gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+          // ===== Logo entrance animation =====
+          if (!reducedMotion) {
+            gsap.from(".logo-stem, .logo-bowl, .logo-leg", {
+              y: -20, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out",
+            });
+          }
 
           // ===== Hero GSAP entrance timeline =====
           const heroTl = gsap.timeline({
@@ -3244,22 +3416,6 @@
             document.body.classList.toggle("scrolled", self.progress > 0.08);
           },
         });
-
-        // ===== Hero parallax exit =====
-        gsap.to(
-          ".hero > .hero-eyebrow, .hero h1, .hero-underline, .hero-desc, .hero-cta",
-          {
-            y: -80,
-            opacity: 0,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: ".hero",
-              start: "center center",
-              end: "bottom top",
-              scrub: 1,
-            },
-          },
-        );
 
         // ===== Section reveals with ScrollTrigger =====
         gsap.utils.toArray(".reveal").forEach((el) => {
@@ -3291,6 +3447,47 @@
               once: true,
             });
           });
+
+          // ===== Kinetic typography — font-weight on scroll =====
+          if (!reducedMotion) {
+            gsap.from(".hero-line", {
+              opacity: 0,
+              y: 20,
+              fontWeight: 200,
+              duration: 1.2,
+              stagger: 0.15,
+              ease: "power3.out",
+              scrollTrigger: { trigger: ".hero", start: "top 80%", toggleActions: "play none none none" },
+            });
+            gsap.utils.toArray(".section-heading").forEach((el) => {
+              gsap.from(el, {
+                fontWeight: 400,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" },
+              });
+            });
+          }
+        }
+
+        // ===== Animated Film Grain =====
+        if (!reducedMotion) {
+          const grainCanvas = document.querySelector(".hero-grain");
+          if (grainCanvas && grainCanvas.getContext) {
+            const ctx = grainCanvas.getContext("2d");
+            const w = grainCanvas.width, h = grainCanvas.height;
+            const imageData = ctx.createImageData(w, h);
+            const data = imageData.data;
+            function renderGrain() {
+              for (let i = 0; i < data.length; i += 4) {
+                const v = Math.random() * 255;
+                data[i] = v; data[i + 1] = v; data[i + 2] = v; data[i + 3] = 255;
+              }
+              ctx.putImageData(imageData, 0, 0);
+            }
+            renderGrain();
+            setInterval(renderGrain, 83);
+          }
         }
 
         // ===== Active nav tracking =====
@@ -3437,6 +3634,12 @@
         });
 
         menuOverlay?.addEventListener("click", closeMobileMenu);
+
+        document.addEventListener("click", (e) => {
+          if (!headerNav?.classList.contains("open")) return;
+          if (headerNav.contains(e.target) || menuToggle?.contains(e.target)) return;
+          closeMobileMenu();
+        });
 
         headerNav?.querySelectorAll("a").forEach((link) => {
           link.addEventListener("click", () => {
@@ -3710,21 +3913,23 @@
         }
 
         // ===== Lenis smooth scroll =====
-        const lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-        });
-        function raf(time) {
-          lenis.raf(time);
+        if (!("ontouchstart" in window || navigator.maxTouchPoints > 0)) {
+          const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+          });
+          function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+          }
           requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
 
-        lenis.on("scroll", ScrollTrigger.update);
-        gsap.ticker.add((time) => {
-          lenis.raf(time * 1000);
-        });
+          lenis.on("scroll", ScrollTrigger.update);
+          gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+          });
+        }
         gsap.ticker.lagSmoothing(0);
 
 
@@ -3784,6 +3989,9 @@
             soundToggle.classList.toggle("active", soundEnabled);
             soundToggle.setAttribute("aria-label", soundEnabled ? "Mute sounds" : "Enable sounds");
             if (soundEnabled) sfx.click();
+            if (!soundEnabled && window.__musicAudio && !window.__musicAudio.paused) {
+              window.__musicAudio.pause();
+            }
           });
         }
 
@@ -3812,8 +4020,59 @@
 
           const audio = new Audio();
           audio.preload = "metadata";
+          window.__musicAudio = audio;
           let currentIdx = 0;
           let loopMode = localStorage.getItem("musicLoop") || "none";
+
+          // Audio visualizer setup
+          const vizCanvas = document.getElementById("musicVisualizer");
+          const vizCtx = vizCanvas?.getContext("2d");
+          let audioCtx = null, analyser = null, freqData = null;
+          function initVisualizer() {
+            if (analyser) return;
+            try {
+              audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+              analyser = audioCtx.createAnalyser();
+              analyser.fftSize = 64;
+              freqData = new Uint8Array(analyser.frequencyBinCount);
+              audioCtx.createMediaElementSource(audio).connect(analyser);
+              analyser.connect(audioCtx.destination);
+            } catch (e) { /* CORS or not supported — visualizer no-ops */ }
+          }
+          function drawVisualizer() {
+            if (!vizCtx || !analyser) return;
+            const rect = vizCanvas.getBoundingClientRect();
+            if (vizCanvas.width !== rect.width) { vizCanvas.width = rect.width; vizCanvas.height = rect.height; }
+            const w = vizCanvas.width, h = vizCanvas.height;
+            vizCtx.clearRect(0, 0, w, h);
+            analyser.getByteFrequencyData(freqData);
+            const bars = freqData.length;
+            const gap = 2;
+            const barW = (w - gap * (bars - 1)) / bars;
+            const style = getComputedStyle(document.documentElement);
+            const accent = style.getPropertyValue("--accent").trim() || "#881798";
+            for (let i = 0; i < bars; i++) {
+              const barH = (freqData[i] / 255) * h * 0.92;
+              const x = i * (barW + gap);
+              vizCtx.fillStyle = accent;
+              vizCtx.globalAlpha = 0.85;
+              vizCtx.fillRect(x, h - barH, barW, barH);
+              vizCtx.globalAlpha = 0.25;
+              vizCtx.fillRect(x, h - barH - 2, barW, 2);
+            }
+            vizCtx.globalAlpha = 1;
+          }
+
+          // Smooth rAF loop for progress + visualizer
+          function tick() {
+            if (audio && audio.src && !audio.paused) {
+              if (progressFill) progressFill.style.width = (audio.currentTime / audio.duration * 100) + "%";
+              if (timeCurrent) timeCurrent.textContent = fmt(audio.currentTime);
+              drawVisualizer();
+            }
+            requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
 
           function fmt(s) {
             if (!isFinite(s)) return "0:00";
@@ -3912,8 +4171,7 @@
           });
 
           audio.addEventListener("timeupdate", () => {
-            if (progressFill) progressFill.style.width = (audio.currentTime / audio.duration * 100) + "%";
-            if (timeCurrent) timeCurrent.textContent = fmt(audio.currentTime);
+            initVisualizer();
           });
 
           audio.addEventListener("loadedmetadata", () => {
@@ -4131,7 +4389,8 @@
         }
       </script>
       <script type="module">
-        import * as THREE from "three";
+        if (!("ontouchstart" in window || navigator.maxTouchPoints > 0)) {
+          const THREE = await import("three");
 
         const canvas = document.getElementById("skillsCanvas");
         if (canvas) {
@@ -4175,7 +4434,7 @@
             const theta = (2 * Math.PI * i) / phi;
 
             const mesh = new THREE.Mesh(
-              new THREE.SphereGeometry(0.12, 16, 16),
+              new THREE.SphereGeometry(0.16, 16, 16),
               new THREE.MeshBasicMaterial({ color: skill.color })
             );
             mesh.position.set(
@@ -4195,7 +4454,7 @@
             const ring = new THREE.Mesh(
               new THREE.RingGeometry(0.16, 0.22, 32),
               new THREE.MeshBasicMaterial({
-                color: skill.color, transparent: true, opacity: 0.2, side: THREE.DoubleSide,
+                color: skill.color, transparent: true, opacity: 0.4, side: THREE.DoubleSide,
               })
             );
             ring.position.copy(mesh.position);
@@ -4213,7 +4472,7 @@
             for (let j = i + 1; j < nodes.length; j++) {
               if (nodes[i].position.distanceTo(nodes[j].position) < 4.5) {
                 const mat = new THREE.LineBasicMaterial({
-                  color: 0x881798, transparent: true, opacity: 0.15,
+                  color: 0x881798, transparent: true, opacity: 0.35,
                 });
                 const positions = new Float32Array(6);
                 const geo = new THREE.BufferGeometry();
@@ -4279,9 +4538,9 @@
             el.textContent = node.userData.name;
             el.style.cssText =
               "position:absolute;font-size:11px;font-family:var(--font-body);" +
-              "color:var(--text-secondary);pointer-events:none;white-space:nowrap;" +
+              "color:var(--text-primary);pointer-events:none;white-space:nowrap;" +
               "transition:opacity 200ms, font-weight 150ms, color 150ms;" +
-              "text-shadow:0 1px 4px rgba(0,0,0,0.5);";
+              "text-shadow:0 1px 6px rgba(0,0,0,0.7), 0 0 14px rgba(0,0,0,0.4);";
             labelContainer.appendChild(el);
             return el;
           });
@@ -4461,6 +4720,7 @@
             camera.updateProjectionMatrix();
             renderer.setSize(w, h);
           });
+        }
         }
       </script>
       <script type="module" src="ghost-cursor.js"></script>

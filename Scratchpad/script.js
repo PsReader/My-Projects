@@ -1,6 +1,22 @@
 const themeStorageKey = "scratchpad-theme";
 const notesStorageKey = "scratchpad-thought-dashboard";
 
+const serifFontsLoaded = {};
+function loadSerifFonts(themeName) {
+  const serifMap = {
+    "forest-quiet": null,
+    "ink-paper": "family=Libre+Baskerville:wght@400;700",
+    "moonlit-library": "family=Cormorant+Garamond:wght@500;600;700",
+  };
+  const fam = serifMap[themeName];
+  if (!fam || serifFontsLoaded[themeName]) return;
+  serifFontsLoaded[themeName] = true;
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = `https://fonts.googleapis.com/css2?${fam}&display=swap`;
+  document.head.appendChild(link);
+}
+
 const themePicker = document.getElementById("themePicker");
 const themeButton = document.getElementById("themeButton");
 const themeMenu = document.getElementById("themeMenu");
@@ -92,6 +108,7 @@ let activeTheme = "midnight-studio";
 let notes = loadNotes();
 let undoStack = [];
 let redoStack = [];
+let cachedForestPattern = null;
 
 const undoBtn = document.getElementById("undoBtn");
 const redoBtn = document.getElementById("redoBtn");
@@ -150,36 +167,47 @@ function renderThemeMenu() {
 function applyTheme(themeName) {
   activeTheme = themeName;
   document.body.setAttribute("data-theme", themeName);
+
+  const themeColorMap = {
+    "midnight-studio": "#020712",
+    "forest-quiet": "#f3ebd9",
+    "ink-paper": "#f3e2ce",
+    "moonlit-library": "#180a20",
+    "minimal-zen": "#fbfaf5",
+    "retro-typewriter": "#f7efe0",
+    "solar-desk": "#fff6e4",
+    "cosmic-notes": "#020712",
+  };
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.content = themeColorMap[themeName] || "#07111f";
   // Use the preferred pine SVG for the forest theme (pine1 only).
   // Generate a randomized SVG pattern so trees don't line up in a grid.
   if (themeName === "forest-quiet") {
     try {
-      // Place multiple copies of the pine image at random positions
-      // Density scales with viewport area to feel like a forest
-      const area = window.innerWidth * window.innerHeight;
-      // Denser forest: smaller divisor => more trees. Scaled to viewport area.
-      const rawCount = Math.round(area / 12000);
-      const count = Math.max(60, Math.min(400, rawCount));
+      if (!cachedForestPattern) {
+        const area = window.innerWidth * window.innerHeight;
+        const rawCount = Math.round(area / 12000);
+        const count = Math.max(60, Math.min(400, rawCount));
 
-      const urls = new Array(count).fill('url("images/pine1.svg")').join(", ");
-      // positions as percentages, biased so more trees appear toward center and edges
-      const positions = new Array(count)
-        .fill(0)
-        .map(() => {
-          const px = Math.round(Math.pow(Math.random(), 0.9) * 100); // slight bias
-          const py = Math.round(Math.pow(Math.random(), 0.95) * 100);
-          return `${Math.max(2, Math.min(98, px))}% ${Math.max(2, Math.min(98, py))}%`;
-        })
-        .join(", ");
-      // sizes smaller when denser
-      const sizes = new Array(count)
-        .fill(0)
-        .map(() => `${Math.round(40 + Math.random() * 70)}px`)
-        .join(", ");
+        const urls = new Array(count).fill('url("images/pine1.svg")').join(", ");
+        const positions = new Array(count)
+          .fill(0)
+          .map(() => {
+            const px = Math.round(Math.pow(Math.random(), 0.9) * 100);
+            const py = Math.round(Math.pow(Math.random(), 0.95) * 100);
+            return `${Math.max(2, Math.min(98, px))}% ${Math.max(2, Math.min(98, py))}%`;
+          })
+          .join(", ");
+        const sizes = new Array(count)
+          .fill(0)
+          .map(() => `${Math.round(40 + Math.random() * 70)}px`)
+          .join(", ");
 
-      document.body.style.setProperty("--forest-svg", urls);
-      document.body.style.setProperty("--forest-positions", positions);
-      document.body.style.setProperty("--forest-sizes", sizes);
+        cachedForestPattern = { urls, positions, sizes };
+      }
+      document.body.style.setProperty("--forest-svg", cachedForestPattern.urls);
+      document.body.style.setProperty("--forest-positions", cachedForestPattern.positions);
+      document.body.style.setProperty("--forest-sizes", cachedForestPattern.sizes);
       document.body.style.setProperty("--forest-repeat", "no-repeat");
     } catch (e) {
       document.body.style.removeProperty("--forest-svg");
@@ -191,6 +219,7 @@ function applyTheme(themeName) {
     const selectedTheme = themes.find((theme) => theme.value === themeName);
     themeValue.textContent = selectedTheme ? selectedTheme.label : themeName;
   }
+  loadSerifFonts(themeName);
   renderThemeMenu();
   localStorage.setItem(themeStorageKey, themeName);
 }
@@ -304,7 +333,7 @@ function renderNotes() {
       );
       const cards = sectionNotes.length
         ? `<div class="notes-grid">${sectionNotes.map((note) => renderNoteCard(note)).join("")}</div>`
-        : `<div class="empty-state"><p>No ${section.value.toLowerCase()} yet.</p><span>Capture your next thought.</span></div>`;
+        : `<div class="empty-state"><svg class="empty-state-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg><p>No ${section.value.toLowerCase()} yet.</p><span>Capture your next thought.</span></div>`;
 
       return `
         <section class="dashboard-section">
@@ -391,6 +420,13 @@ function addNote(event) {
   notes = [newNote, ...notes];
   saveNotes();
   renderNotes();
+
+  const firstCard = dashboardSections?.querySelector(".note-card");
+  if (firstCard) {
+    firstCard.classList.add("is-new");
+    firstCard.addEventListener("animationend", () => firstCard.classList.remove("is-new"), { once: true });
+  }
+
   noteForm.reset();
   notePinned.checked = false;
   noteSection.value = "Quick Notes";
@@ -502,6 +538,15 @@ if (noteForm) {
   noteForm.addEventListener("submit", addNote);
 }
 
+if (noteContent) {
+  noteContent.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+      e.preventDefault();
+      noteForm.requestSubmit();
+    }
+  });
+}
+
 if (dashboardSections) {
   dashboardSections.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-action]");
@@ -524,12 +569,31 @@ if (searchNotes) {
 
 if (clearBtn) {
   clearBtn.addEventListener("click", () => {
-    if (window.confirm("Clear all notes?")) {
+    const existing = document.querySelector(".confirm-dialog");
+    if (existing) { existing.remove(); return; }
+
+    const dialog = document.createElement("div");
+    dialog.className = "confirm-dialog";
+    dialog.style.cssText =
+      "position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);";
+    dialog.innerHTML =
+      '<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:24px;max-width:320px;width:90%;text-align:center;">' +
+      '<p style="margin:0 0 16px;color:var(--text);font-weight:600;">Clear all notes?</p>' +
+      '<div style="display:flex;gap:10px;justify-content:center;">' +
+      '<button class="confirm-yes" style="padding:10px 20px;border-radius:999px;border:none;background:var(--accent);color:#fff;font-weight:700;cursor:pointer;">Yes, clear</button>' +
+      '<button class="confirm-no" style="padding:10px 20px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-weight:700;cursor:pointer;">Cancel</button>' +
+      '</div></div>';
+    document.body.appendChild(dialog);
+
+    dialog.querySelector(".confirm-yes").addEventListener("click", () => {
       pushHistory(notes);
       notes = [];
       saveNotes();
       renderNotes();
-    }
+      dialog.remove();
+    });
+    dialog.querySelector(".confirm-no").addEventListener("click", () => dialog.remove());
+    dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.remove(); });
   });
 }
 

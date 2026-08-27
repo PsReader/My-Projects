@@ -609,6 +609,8 @@ export function initGhostCursor(el, opts = {}) {
 }
 
 function init() {
+  if ("ontouchstart" in window || navigator.maxTouchPoints > 0) return;
+
   document.querySelectorAll("#ghostCursor, .ghost-cursor").forEach((el) => {
     if (el.__ghostCursorInit) return;
     el.__ghostCursorInit = true;

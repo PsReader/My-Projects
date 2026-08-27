@@ -2,595 +2,55 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>Review - Pudding Paradise</title>
     <link rel="icon" href="images/Group1.png" />
     <link
       href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-
-    <style>
-      /* --- 1. CSS VARIABLES & RESET --- */
-      :root {
-        --bg-pink: #fadadd;
-        --main-purple: #8e6b96;
-        --light-purple: #c8aec8;
-        --card-bg: #d8bfd8;
-        --text-color: #4a4a4a;
-        --white: #ffffff;
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: "Quicksand", sans-serif;
-      }
-
-      body {
-        background-color: #f0f0f0;
-        min-height: 100vh;
-        margin: 0;
-        padding: 20px 16px;
-        overflow-x: hidden;
-      }
-
-      .mobile-container {
-        width: min(100%, 980px);
-        max-width: 980px;
-        margin: 0 auto;
-        background-color: var(--bg-pink);
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.12);
-        position: relative;
-        border-radius: 24px;
-        padding-bottom: clamp(20px, 5vh, 50px);
-        animation: fadeInUp 0.6s ease-out both;
-      }
-
-      @media (min-width: 768px) {
-        body {
-          padding: 0;
-        }
-
-        .mobile-container {
-          padding-bottom: clamp(30px, 5vh, 50px);
-        }
-      }
-
-      @media (min-width: 1024px) {
-        body {
-          padding: 0;
-        }
-
-        .mobile-container {
-          padding-bottom: clamp(40px, 5vh, 60px);
-        }
-      }
-
-      @media (min-width: 1200px) {
-        body {
-          padding: 0;
-        }
-
-        .mobile-container {
-          padding-bottom: clamp(40px, 5vh, 60px);
-        }
-      }
-
-      /* --- 1.5. ANIMATIONS --- */
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(18px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes floatPulse {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-4px);
-        }
-      }
-
-      .logo-area,
-      .menu-icon,
-      .contact-icon {
-        animation: floatPulse 4s ease-in-out infinite alternate;
-      }
-
-      .section-box,
-      .menu-card,
-      .menu-item,
-      .review-card,
-      .contact-item,
-      .coupon-card {
-        animation: fadeInUp 0.55s ease-out both;
-      }
-
-      button,
-      .button,
-      .order-button,
-      .submit-btn,
-      .save-btn {
-        transition:
-          transform 0.18s ease,
-          box-shadow 0.18s ease,
-          background-color 0.2s ease;
-      }
-
-      button:hover,
-      .button:hover,
-      .order-button:hover,
-      .submit-btn:hover,
-      .save-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 22px rgba(142, 107, 150, 0.18);
-      }
-
-      /* --- 2. HEADER --- */
-      header {
-        background-color: var(--light-purple);
-        padding: clamp(12px, 3vw, 35px) clamp(15px, 5vw, 70px);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 3px solid var(--main-purple);
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .logo-area {
-        display: flex;
-        align-items: center;
-        gap: clamp(8px, 2vw, 20px);
-        color: var(--main-purple);
-        font-weight: 700;
-        font-size: clamp(1.2rem, 3.5vw, 2.8rem);
-      }
-
-      .logo-icon {
-        font-size: clamp(1.2rem, 3.5vw, 2.8rem);
-        width: clamp(50px, 8vw, 110px);
-        height: clamp(50px, 8vw, 110px);
-        object-fit: contain;
-      }
-
-      .menu-icon,
-      .contact-icon {
-        color: var(--main-purple);
-        cursor: pointer;
-      }
-
-      .menu-icon {
-        font-size: clamp(1.8rem, 4vw, 3.8rem);
-      }
-
-      .contact-icon {
-        font-size: clamp(1.8rem, 4vw, 3.8rem);
-      }
-
-      .header-controls {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-      }
-
-      /* --- 3. TITLE SECTION --- */
-      .page-title {
-        padding: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
-        text-align: center;
-      }
-
-      .page-title h1 {
-        color: var(--main-purple);
-        font-size: clamp(1.5rem, 4vw, 4rem);
-        margin-bottom: clamp(8px, 1.5vw, 15px);
-      }
-
-      .page-title p {
-        color: #555;
-        font-size: clamp(0.8rem, 2vw, 1.6rem);
-      }
-
-      /* --- 4. SECTIONS GENERAL STYLE --- */
-      .section-box {
-        background-color: #f4a6c1;
-        margin: clamp(15px, 4vw, 50px) clamp(15px, 5vw, 70px);
-        padding: clamp(15px, 4vw, 45px);
-        border-radius: clamp(10px, 2vw, 25px);
-        border: 2px solid var(--main-purple);
-        text-align: center;
-      }
-
-      .section-title-badge {
-        display: inline-block;
-        background-color: var(--main-purple);
-        color: white;
-        padding: clamp(5px, 1.5vw, 15px) clamp(15px, 3vw, 45px);
-        border-radius: 15px;
-        font-weight: bold;
-        margin-bottom: clamp(8px, 2vw, 15px);
-        position: relative;
-        top: clamp(-20px, -3vw, -30px);
-        font-size: clamp(0.9rem, 2.5vw, 1.7rem);
-      }
-
-      .review-toolbar {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: clamp(8px, 2vw, 15px);
-        margin-bottom: clamp(12px, 2vw, 20px);
-        position: relative;
-        top: 0;
-      }
-
-      .review-toolbar .section-title-badge {
-        top: 0;
-        position: static;
-        margin-bottom: 0;
-        font-size: clamp(0.9rem, 2.5vw, 1.7rem);
-        padding: clamp(5px, 1.5vw, 15px) clamp(15px, 3vw, 45px);
-      }
-
-      .review-filter {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-top: clamp(8px, 1.5vw, 15px);
-      }
-
-      .review-filter select {
-        width: 100%;
-        max-width: clamp(280px, 80vw, 380px);
-        padding: clamp(10px, 2vw, 14px) clamp(40px, 5vw, 50px)
-          clamp(10px, 2vw, 14px) clamp(14px, 2vw, 18px);
-        border-radius: clamp(18px, 3vw, 25px);
-        border: 2px solid var(--main-purple);
-        background-color: var(--light-purple);
-        color: var(--main-purple);
-        font-family: "Quicksand", sans-serif;
-        font-size: clamp(0.85rem, 1.8vw, 1.1rem);
-        cursor: pointer;
-        box-shadow: 0 6px 15px rgba(142, 107, 150, 0.2);
-        appearance: none;
-        -webkit-appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%238E6B96' d='M4.646 6.646a.5.5 0 0 1 .708 0L8 9.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right clamp(12px, 2vw, 18px) center;
-        background-size: 16px;
-        transition:
-          transform 0.25s ease,
-          box-shadow 0.25s ease,
-          border-color 0.25s ease,
-          background-position 0.25s ease;
-        animation: dropdownFadeIn 0.5s ease-out both;
-      }
-
-      .review-filter select:hover,
-      .review-filter select:focus {
-        border-color: var(--main-purple);
-        box-shadow: 0 10px 22px rgba(142, 107, 150, 0.25);
-        outline: none;
-        transform: translateY(-2px);
-        background-position: right clamp(10px, 1.8vw, 14px) center;
-      }
-
-      .review-filter select:focus {
-        outline: none;
-        border-color: var(--main-purple);
-      }
-
-      @keyframes dropdownFadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(8px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* --- 5. REVIEW ITEMS --- */
-      .review-list {
-        display: flex;
-        flex-direction: column;
-        gap: clamp(10px, 2vw, 20px);
-        margin-top: clamp(-10px, -2vw, -15px);
-      }
-
-      .review-card {
-        background-color: var(--light-purple);
-        padding: clamp(10px, 2vw, 18px);
-        border-radius: clamp(12px, 2vw, 20px);
-        border: 2px solid #777;
-        box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
-        text-align: left;
-      }
-
-      .review-header {
-        display: flex;
-        align-items: center;
-        gap: clamp(8px, 2vw, 15px);
-        margin-bottom: clamp(8px, 1.5vw, 12px);
-      }
-
-      .avatar {
-        width: clamp(40px, 8vw, 60px);
-        height: clamp(40px, 8vw, 60px);
-        border-radius: 50%;
-        background-color: white;
-        overflow: hidden;
-        flex-shrink: 0;
-      }
-
-      .avatar img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .review-user-info {
-        flex: 1;
-      }
-
-      .user-badge {
-        background-color: var(--main-purple);
-        color: white;
-        font-size: clamp(0.65rem, 1.5vw, 1rem);
-        padding: clamp(3px, 0.7vw, 6px) clamp(8px, 1.5vw, 12px);
-        border-radius: 10px;
-        font-weight: bold;
-      }
-
-      .stars {
-        color: gold;
-        font-size: clamp(0.7rem, 1.5vw, 1rem);
-        margin-top: clamp(2px, 0.5vw, 5px);
-      }
-
-      .review-text {
-        background-color: rgba(255, 255, 255, 0.6);
-        padding: clamp(8px, 1.5vw, 12px);
-        border-radius: 8px;
-        font-size: clamp(0.75rem, 1.6vw, 1.1rem);
-        font-style: italic;
-        line-height: 1.5;
-        color: #555;
-        margin: clamp(8px, 1.5vw, 12px) 0;
-      }
-
-      .review-date {
-        font-size: clamp(0.65rem, 1.2vw, 0.85rem);
-        color: #999;
-        text-align: right;
-      }
-
-      .rating-row {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        margin: 12px 0 8px;
-      }
-
-      .star-btn {
-        background: none;
-        border: none;
-        font-size: 2.5rem;
-        cursor: pointer;
-        color: #bbb;
-        transition:
-          transform 0.15s,
-          color 0.15s;
-      }
-
-      .star-btn.active {
-        color: gold;
-        transform: scale(1.1);
-      }
-
-      .feedback-textarea {
-        width: 100%;
-        min-height: 90px;
-        border-radius: 12px;
-        border: 2px solid rgba(142, 107, 150, 0.4);
-        padding: 10px;
-        resize: vertical;
-        font-family: "Quicksand", sans-serif;
-        margin-bottom: 12px;
-      }
-
-      .name-input {
-        width: 85%;
-        max-width: 320px;
-        margin: 0 auto 12px;
-        height: 34px;
-        border-radius: 12px;
-        border: 2px solid rgba(142, 107, 150, 0.4);
-        padding: 8px 10px;
-        font-family: "Quicksand", sans-serif;
-        font-size: 1rem;
-        display: block;
-      }
-
-      /* --- 6. DROPDOWN MENU --- */
-      .dropdown-menu {
-        position: absolute;
-        top: 65px;
-        left: 0;
-        background-color: var(--light-purple);
-        width: 200px;
-        border: 2px solid var(--main-purple);
-        border-radius: 0 0 15px 15px;
-        display: flex;
-        flex-direction: column;
-        z-index: 1000;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
-        max-height: 0;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px) scale(0.98);
-        transition:
-          max-height 0.35s ease,
-          opacity 0.35s ease,
-          transform 0.35s ease,
-          visibility 0.35s ease;
-      }
-
-      .dropdown-menu.active {
-        max-height: 260px;
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0) scale(1);
-      }
-
-      .dropdown-item {
-        padding: 12px 20px;
-        color: var(--main-purple);
-        text-decoration: none;
-        border-bottom: 1px solid rgba(142, 107, 150, 0.2);
-        font-weight: 600;
-        transition:
-          background-color 0.2s,
-          transform 0.2s;
-      }
-
-      .dropdown-item:hover {
-        background-color: rgba(255, 255, 255, 0.3);
-      }
-
-      .dropdown-item:last-child {
-        border-bottom: none;
-      }
-
-      .back-btn {
-        background-color: var(--main-purple);
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 8px;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-        margin: 10px 0;
-        font-weight: 600;
-        font-size: 0.8rem;
-        transition: background-color 0.2s;
-      }
-
-      .back-btn:hover {
-        background-color: #7a5b7f;
-      }
-
-      .order-btn {
-        background-color: var(--main-purple);
-        color: white;
-        border: none;
-        padding: 15px 50px;
-        border-radius: 20px;
-        margin: 20px auto;
-        display: block;
-        font-weight: bold;
-        font-size: 1.1rem;
-        cursor: pointer;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        transition: transform 0.1s;
-      }
-
-      .order-btn:active {
-        transform: scale(0.95);
-      }
-
-      .back-button {
-        position: fixed;
-        top: clamp(15px, 3vw, 35px);
-        right: clamp(15px, 3vw, 35px);
-        z-index: 100;
-        width: clamp(42px, 8vw, 70px);
-        height: clamp(42px, 8vw, 70px);
-        border-radius: 50%;
-        background: linear-gradient(
-          135deg,
-          var(--main-purple),
-          var(--light-purple)
-        );
-        border: 2px solid var(--main-purple);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(142, 107, 150, 0.3);
-        animation: floatPulse 4s ease-in-out infinite alternate;
-        text-decoration: none;
-      }
-
-      .back-button:hover {
-        background: linear-gradient(
-          135deg,
-          var(--light-purple),
-          var(--main-purple)
-        );
-        transform: scale(1.1) translateY(-3px);
-        box-shadow: 0 8px 20px rgba(142, 107, 150, 0.5);
-      }
-
-      .back-button a {
-        color: white;
-        font-size: clamp(1.3rem, 3.5vw, 2.8rem);
-        font-weight: bold;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Back Button -->
-    <div class="back-button">
-      <a href="../index.html" title="Back to Portfolio">←</a>
-    </div>
+    <a href="../index.html" class="back-button" title="Back to Portfolio"
+      >&larr;</a
+    >
 
     <div class="mobile-container">
       <header>
         <div class="menu-icon" onclick="toggleMenu()">
-          <i class="fas fa-bars"></i>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          >
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
         </div>
         <div class="logo-area">
-          <img src="images/Group1.png" class="logo-icon" alt="Pudding Icon" />
+          <img
+            src="images/Group1.png"
+            class="logo-icon"
+            alt="Pudding Icon"
+            width="72"
+            height="72"
+          />
           <span>PUDDING PARADISE</span>
         </div>
-        <div class="header-controls">
-          <a
-            href="puddinghome.html#kontak"
-            class="contact-icon"
-            style="text-decoration: none; color: #8e6b96"
-            ><i class="fas fa-envelope"></i
-          ></a>
-        </div>
+
 
         <div class="dropdown-menu" id="dropdownMenu">
           <a href="puddinghome.html" class="dropdown-item">Beranda</a>
           <a href="menu.html" class="dropdown-item">Menu</a>
           <a href="review.html" class="dropdown-item">Review</a>
-          <a href="puddinghome.html#kontak" class="dropdown-item">Kontak</a>
+
         </div>
       </header>
 
@@ -608,304 +68,144 @@
               onchange="updateReviewFilter(this.value)"
             >
               <option value="0">Tampilkan semua review</option>
-              <option value="5">★★★★★ (5 bintang)</option>
-              <option value="4">★★★★ (4 bintang)</option>
-              <option value="3">★★★ (3 bintang)</option>
-              <option value="2">★★ (2 bintang)</option>
-              <option value="1">★ (1 bintang)</option>
+              <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733; (5 bintang)</option>
+              <option value="4">&#9733;&#9733;&#9733;&#9733; (4 bintang)</option>
+              <option value="3">&#9733;&#9733;&#9733; (3 bintang)</option>
+              <option value="2">&#9733;&#9733; (2 bintang)</option>
+              <option value="1">&#9733; (1 bintang)</option>
             </select>
           </div>
         </div>
 
         <div class="review-list"></div>
+      </section>
 
-        <div class="section-box">
-          <div class="section-title-badge">Beri Feedback</div>
-          <p style="color: #555; margin: 10px 0">
-            Pilih rating bintang dan kirim pesan singkat untuk kami.
-          </p>
-          <div class="rating-row" id="feedbackStars">
-            <button
-              class="star-btn"
-              type="button"
-              onclick="selectFeedbackRating(1)"
-            >
-              ★
-            </button>
-            <button
-              class="star-btn"
-              type="button"
-              onclick="selectFeedbackRating(2)"
-            >
-              ★
-            </button>
-            <button
-              class="star-btn"
-              type="button"
-              onclick="selectFeedbackRating(3)"
-            >
-              ★
-            </button>
-            <button
-              class="star-btn"
-              type="button"
-              onclick="selectFeedbackRating(4)"
-            >
-              ★
-            </button>
-            <button
-              class="star-btn"
-              type="button"
-              onclick="selectFeedbackRating(5)"
-            >
-              ★
-            </button>
-          </div>
-          <input
-            type="text"
-            id="feedbackName"
-            class="name-input"
-            placeholder="Masukkan nama Anda..."
-          />
-          <textarea
-            id="feedbackText"
-            class="feedback-textarea"
-            placeholder="Tulis feedback Anda di sini..."
-          ></textarea>
-          <button class="order-btn" onclick="submitFeedback()">
-            Kirim Feedback
+      <section class="section-box">
+        <div class="section-title-badge">Beri Feedback</div>
+        <p style="color: #555; margin: 10px 0; font-size: 0.9rem">
+          Pilih rating bintang dan kirim pesan singkat untuk kami.
+        </p>
+        <div class="rating-row" id="feedbackStars">
+          <button
+            class="star-btn"
+            type="button"
+            onclick="selectFeedbackRating(1)"
+          >
+            &#9733;
+          </button>
+          <button
+            class="star-btn"
+            type="button"
+            onclick="selectFeedbackRating(2)"
+          >
+            &#9733;
+          </button>
+          <button
+            class="star-btn"
+            type="button"
+            onclick="selectFeedbackRating(3)"
+          >
+            &#9733;
+          </button>
+          <button
+            class="star-btn"
+            type="button"
+            onclick="selectFeedbackRating(4)"
+          >
+            &#9733;
+          </button>
+          <button
+            class="star-btn"
+            type="button"
+            onclick="selectFeedbackRating(5)"
+          >
+            &#9733;
           </button>
         </div>
+        <input
+          type="text"
+          id="feedbackName"
+          class="name-input"
+          placeholder="Masukkan nama Anda..."
+        />
+        <textarea
+          id="feedbackText"
+          class="feedback-textarea"
+          placeholder="Tulis feedback Anda di sini..."
+        ></textarea>
+        <button class="order-btn" onclick="submitFeedback()">
+          Kirim Feedback
+        </button>
 
-        <a href="puddinghome.html" class="back-btn">← Kembali ke Beranda</a>
+        <div style="text-align: center">
+          <a href="puddinghome.html" class="back-btn"
+            >&larr; Kembali ke Beranda</a
+          >
+        </div>
       </section>
     </div>
 
-    <script>
-      const STORAGE_KEY = "puddingParadiseReviews";
-      let selectedFeedbackRating = 0;
-      let reviews = [];
-
-      const initialReviews = [
-        {
-          name: "Made",
-          avatar: "M",
-          stars: 5,
-          text: "Puddingnya sangat lembut dan teksturnya sempurna. Rasa vanilanya juga pas, tidak terlalu manis. Recommended banget!",
-          date: "2 hari yang lalu",
-        },
-        {
-          name: "Qaiser",
-          avatar: "Q",
-          stars: 5,
-          text: "Puddingnya lezat dan customer servicenya bagus sekali. Pengiriman cepat dan packaging rapi. Udah order 3x dan puas setiap kalinya!",
-          date: "1 minggu yang lalu",
-        },
-        {
-          name: "Rheindaru",
-          avatar: "R",
-          stars: 5,
-          text: "Puddingnya lumer di mulut, bikin nagih! Saya udah order buat teman-teman dan mereka semua suka. Harganya juga sangat terjangkau.",
-          date: "2 minggu yang lalu",
-        },
-        {
-          name: "Aditya",
-          avatar: "A",
-          stars: 5,
-          text: "Pertama kali order pudding dari Pudding Paradise dan wow, ini enak banget! Pilihan rasa strawberry dan coklat nya sama-sama oke. Pasti order lagi!",
-          date: "3 minggu yang lalu",
-        },
-        {
-          name: "Sinta",
-          avatar: "S",
-          stars: 5,
-          text: "Makasih ya Pudding Paradise! Puddingnya fresh dan enak. Cocok jadi cemilan di sore hari. Admin juga ramah dan responsif.",
-          date: "1 bulan yang lalu",
-        },
-      ];
-
-      function toggleMenu() {
-        const dropdown = document.getElementById("dropdownMenu");
-        dropdown.classList.toggle("active");
-      }
-
-      document.addEventListener("click", function (event) {
-        const dropdown = document.getElementById("dropdownMenu");
-        const menuIcon = document.querySelector(".menu-icon");
-        if (
-          !dropdown.contains(event.target) &&
-          !menuIcon.contains(event.target)
-        ) {
-          dropdown.classList.remove("active");
-        }
-      });
-
-      function selectFeedbackRating(value) {
-        selectedFeedbackRating = value;
-        const stars = document.querySelectorAll("#feedbackStars .star-btn");
-        stars.forEach((button, index) => {
-          button.classList.toggle("active", index < value);
-        });
-      }
-
-      let reviewFilter = 0;
-
-      function saveReviews() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
-      }
-
-      function loadReviews() {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          try {
-            reviews = JSON.parse(stored);
-            if (!Array.isArray(reviews)) {
-              reviews = initialReviews.slice();
-            }
-          } catch (e) {
-            reviews = initialReviews.slice();
-            saveReviews();
-          }
-        } else {
-          reviews = initialReviews.slice();
-          saveReviews();
-        }
-        renderReviews();
-      }
-
-      function updateReviewFilter(value) {
-        reviewFilter = Number(value);
-        renderReviews();
-      }
-
-      function renderReviews() {
-        const reviewList = document.querySelector(".review-list");
-        reviewList.innerHTML = "";
-
-        const filteredReviews =
-          reviewFilter > 0
-            ? reviews.filter((review) => review.stars === reviewFilter)
-            : reviews;
-
-        if (filteredReviews.length === 0) {
-          reviewList.innerHTML =
-            '<div class="review-card"><div class="review-text">Belum ada review dengan rating tersebut.</div></div>';
-          return;
-        }
-
-        filteredReviews.forEach((review) => {
-          const ratingStars =
-            "★".repeat(review.stars) + "☆".repeat(5 - review.stars);
-          const safeAvatar = String(review.avatar || "P").replace(
-            /[^a-zA-Z0-9]/g,
-            "",
-          );
-          const avatarUrl = `https://placehold.co/50x50/purple/white?text=${encodeURIComponent(safeAvatar)}`;
-
-          const reviewCard = document.createElement("div");
-          reviewCard.className = "review-card";
-
-          const reviewHeader = document.createElement("div");
-          reviewHeader.className = "review-header";
-
-          const avatar = document.createElement("div");
-          avatar.className = "avatar";
-          const avatarImg = document.createElement("img");
-          avatarImg.src = avatarUrl;
-          avatarImg.alt = "Avatar";
-          avatar.appendChild(avatarImg);
-
-          const reviewUserInfo = document.createElement("div");
-          reviewUserInfo.className = "review-user-info";
-
-          const userBadge = document.createElement("div");
-          userBadge.className = "user-badge";
-          userBadge.textContent = review.name;
-
-          const stars = document.createElement("div");
-          stars.className = "stars";
-          stars.textContent = ratingStars;
-
-          reviewUserInfo.appendChild(userBadge);
-          reviewUserInfo.appendChild(stars);
-
-          reviewHeader.appendChild(avatar);
-          reviewHeader.appendChild(reviewUserInfo);
-
-          const reviewText = document.createElement("div");
-          reviewText.className = "review-text";
-          reviewText.textContent = `"${review.text}"`;
-
-          const reviewDate = document.createElement("div");
-          reviewDate.className = "review-date";
-          reviewDate.textContent = review.date;
-
-          reviewCard.appendChild(reviewHeader);
-          reviewCard.appendChild(reviewText);
-          reviewCard.appendChild(reviewDate);
-          reviewList.appendChild(reviewCard);
-        });
-      }
-
-      function submitFeedback() {
-        if (selectedFeedbackRating === 0) {
-          alert(
-            "Pilih rating bintang terlebih dahulu sebelum mengirim feedback.",
-          );
-          return;
-        }
-
-        const name =
-          document.getElementById("feedbackName").value.trim() || "Pelanggan";
-        const message = document.getElementById("feedbackText").value.trim();
-        const reviewText = message || "Feedback dari pelanggan baru.";
-
-        const newReview = {
-          name,
-          avatar: name.charAt(0).toUpperCase(),
-          stars: selectedFeedbackRating,
-          text: reviewText,
-          date: "Baru saja",
-        };
-
-        reviews.unshift(newReview);
-        saveReviews();
-        renderReviews();
-
-        document.getElementById("feedbackName").value = "";
-        document.getElementById("feedbackText").value = "";
-        selectedFeedbackRating = 0;
-        selectFeedbackRating(0);
-
-        alert("Terima kasih! Feedback Anda telah dikirim.");
-      }
-
-      document.addEventListener("DOMContentLoaded", loadReviews);
-    </script>
-
-    <footer
-      style="
-        background: #fff6ff;
-        border-top: 1px solid #d8b5d8;
-        padding: 22px 18px;
-        text-align: center;
-        color: #4a4a4a;
-        font-size: 0.92rem;
-      "
-    >
-      <p style="margin: 0 0 6px">
-        &copy; 2026 Pudding Paradise. All rights reserved.
-      </p>
-      <p style="margin: 0 0 6px">
-        This site is for educational and portfolio purposes. No infringement is
-        intended.
-      </p>
-      <p style="margin: 0">
-        Built with care for a sweet order experience |
-        <a href="puddinghome.html" style="color: #8e6b96; text-decoration: none"
-          >Back to Home</a
-        >
-      </p>
+    <footer class="site-footer">
+      <div class="footer-wave">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+          <path
+            d="M0,50 C240,90 480,10 720,50 C960,90 1200,10 1440,50 L1440,100 L0,100 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </div>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img
+            src="images/Group1.png"
+            alt="Pudding Paradise"
+            class="footer-logo"
+            width="44"
+            height="44"
+          />
+          <span class="footer-name">Pudding Paradise</span>
+          <p class="footer-tagline">Dibuat dengan 💜</p>
+        </div>
+        <div class="footer-links">
+          <a href="puddinghome.html" class="footer-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Beranda
+          </a>
+          <a href="menu.html" class="footer-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 11h.01"/><path d="M11 15h.01"/><path d="M16 16h.01"/><path d="M2 16l20 6-6-20A20 20 0 0 0 2 16"/></svg>
+            Menu
+          </a>
+          <a href="review.html" class="footer-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Review
+          </a>
+        </div>
+        <div class="footer-social">
+          <a
+            href="https://wa.me/6288290295374"
+            target="_blank"
+            rel="noreferrer noopener"
+            class="social-icon"
+            title="WhatsApp"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <a
+            href="https://www.instagram.com/p.sreader?igsh=MWNsdmZycGIyd2gzMg=="
+            target="_blank"
+            rel="noreferrer noopener"
+            class="social-icon"
+            title="Instagram"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </div>
+        <div class="footer-divider"></div>
+        <p class="footer-copy">&copy; 2026 Pudding Paradise. All rights reserved.</p>
+        <p class="footer-disclaimer">Built with care for a sweet order experience.</p>
+      </div>
     </footer>
+
+    <script src="script.js" defer></script>
   </body>
 </html>
