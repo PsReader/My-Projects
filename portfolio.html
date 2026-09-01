@@ -329,6 +329,12 @@
         .magazine-project {
           grid-template-columns: 1fr;
         }
+        .hero-cta {
+          flex-direction: column;
+        }
+        .btn {
+          justify-content: center;
+        }
       }
 
       /* =================================================================
@@ -435,7 +441,7 @@
         text-transform: uppercase;
         letter-spacing: 0.08em;
       }
-      @media (max-width: 640px) {
+      @media (max-width: 768px) {
         .stats-strip-inner {
           flex-wrap: wrap;
         }
@@ -443,7 +449,13 @@
           flex: 1 1 calc(50% - 1px);
         }
         .stats-strip-item:last-child {
-          flex: 1 1 100%;
+          flex: 1 1 calc(50% - 1px);
+        }
+        .stats-strip-item:nth-child(even) {
+          border-right: none;
+        }
+        .stats-strip-item:nth-child(n + 3) {
+          border-top: 1px solid var(--border);
         }
       }
 
@@ -1058,6 +1070,62 @@
         font-weight: 800;
       }
 
+      .desktop-nav {
+        display: none;
+      }
+
+      /* =================================================================
+         RESPONSIVE — Desktop (≥ 1024px): inline primary nav
+         ================================================================= */
+      @media (min-width: 1024px) {
+        .header-inner {
+          justify-content: flex-end;
+          gap: 24px;
+        }
+        .wordmark {
+          margin-right: auto;
+        }
+        .desktop-nav {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          gap: 0;
+        }
+        .desktop-nav a {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          color: var(--text-tertiary);
+          text-decoration: none;
+          font-size: 0.9375rem;
+          font-weight: 500;
+          letter-spacing: -0.01em;
+          height: 100%;
+          padding: 0 16px;
+          border-radius: 0;
+          transition:
+            background 150ms var(--ease),
+            color 150ms var(--ease),
+            font-weight 300ms ease;
+        }
+        .desktop-nav a:hover {
+          background: var(--accent-muted);
+          color: var(--accent);
+          font-weight: 800;
+        }
+        .desktop-nav a:active {
+          background: var(--accent-muted);
+          color: var(--accent);
+          transform: translateY(1px);
+        }
+        /* Hide duplicated links that live in the drawer on desktop;
+           the drawer keeps the music player, color picker, and toggles. */
+        .header-nav > a {
+          display: none;
+        }
+      }
+
       .wordmark-avatar-link {
         display: inline-flex;
         line-height: 0;
@@ -1104,32 +1172,6 @@
         background: var(--bg-card);
         color: var(--text-primary);
         font-weight: 800;
-      }
-
-      .nav-gh {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        color: var(--text-secondary);
-        padding: 6px 14px;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        font-size: 0.8125rem;
-        font-weight: 500;
-        transition: all 180ms var(--ease);
-        margin-top: 16px;
-        width: 100%;
-        justify-content: center;
-      }
-      .nav-gh:hover {
-        color: var(--text-primary);
-        border-color: var(--border-hover);
-        background: var(--bg-card);
-      }
-      .nav-gh svg {
-        width: 15px;
-        height: 15px;
-        flex-shrink: 0;
       }
 
       /* =================================================================
@@ -1342,6 +1384,7 @@
         .hero-content {
           padding-left: 0;
           max-width: 92%;
+          align-self: center;
         }
 
       }
@@ -1437,6 +1480,20 @@
         background: linear-gradient(90deg, var(--accent), transparent);
         margin-top: 16px;
         border-radius: 2px;
+      }
+
+      .about-body p {
+        font-size: 1.0625rem;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        max-width: 60ch;
+        margin: 0;
+      }
+      .section-desc {
+        font-size: 1.0625rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        margin: 0 0 32px;
       }
 
       /* =================================================================
@@ -1963,6 +2020,58 @@
         color: var(--text-secondary);
       }
 
+      .footer-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .footer-logo {
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+      .footer-name {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+      }
+      .footer-tagline {
+        font-size: 0.8125rem;
+        color: var(--text-tertiary);
+        margin: 0;
+      }
+      .footer-divider {
+        width: 1px;
+        height: 20px;
+        background: var(--border);
+      }
+      .footer-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 6px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--text-secondary) !important;
+        background: var(--bg-card);
+        transition: border-color 150ms var(--ease), color 150ms var(--ease), background 150ms var(--ease);
+      }
+      .footer-pill:hover {
+        border-color: var(--border-hover);
+        color: var(--text-primary) !important;
+        background: var(--bg-card-hover);
+      }
+      .footer-inner .footer-nav { order: 1; }
+      .footer-inner .footer-copy {
+        order: 2;
+        width: 100%;
+        text-align: center;
+        margin-top: 8px;
+      }
+
       /* =================================================================
          ANIMATIONS
          ================================================================= */
@@ -2206,6 +2315,17 @@
       }
       @media (hover: none), (pointer: coarse) {
         .cursor-dot, .cursor-ring, .cursor-splatter { display: none; }
+        /* Enlarge touch targets for comfortable taps */
+        .color-dot { width: 20px; height: 20px; }
+        .theme-toggle { width: 44px; height: 44px; }
+        .music-ctrl-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 40px;
+          min-height: 40px;
+        }
+        .mobile-menu-toggle { padding: 10px 14px; }
       }
       @media (max-width: 768px) {
         .site-header {
@@ -2325,7 +2445,9 @@
         }
 
         .footer-nav {
+          flex-wrap: wrap;
           justify-content: center;
+          gap: 10px;
         }
 
         .stack-scroll-wrapper canvas {
@@ -2478,6 +2600,12 @@
               PsReader
             </a>
           </div>
+          <nav class="desktop-nav" aria-label="Primary navigation">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+            <a href="index.html">View Demos</a>
+          </nav>
           <button
             class="mobile-menu-toggle"
             aria-label="Toggle menu"
@@ -2495,30 +2623,10 @@
             </svg>
           </button>
           <nav class="header-nav" aria-label="Main navigation">
-            <a
-              href="https://github.com/PsReader"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="nav-gh"
-              aria-label="GitHub profile"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                />
-              </svg>
-              GitHub
-            </a>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
             <a href="#contact">Contact</a>
-            <a
-              href="index.html"
-              class="btn btn--ghost"
-              aria-label="View live demos"
-            >
-              View Demos
-            </a>
+            <a href="index.html">View Demos</a>
             <div class="color-picker" aria-label="Accent color">
               <button class="color-dot active" data-accent="default" style="background:#881798" aria-label="Purple"></button>
               <button class="color-dot" data-accent="ocean" style="background:#0077b6" aria-label="Ocean"></button>

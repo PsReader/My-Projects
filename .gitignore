@@ -6,4 +6,4 @@ vite.config.d.ts
 .DS_Store
 Thumbs.db
 AGENTS.md
-deploy/
+Deploy/
